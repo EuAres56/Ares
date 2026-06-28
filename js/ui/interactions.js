@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             case "services":
                 // Inicia o ciclo do Three.js apenas quando o usuário pisar na tela de serviços
                 window.Notebook3DEngine?.start('services-3d', {
-                    modelPath: '../../assets/models/notebook.glb',
+                    modelPath: './assets/models/notebook.glb',
                     onPageChange: (index) => syncServiceCardsMenu(index)
                 });
                 setupServiceCardsControls();

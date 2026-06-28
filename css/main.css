@@ -4,9 +4,9 @@
 /* =============================================================================================== */
 
 /* BASE */
-@import url("tokens.css");
-@import url("reset.css");
-@import url("layout.css");
+@import url("./tokens.css");
+@import url("./reset.css");
+@import url("./layout.css");
 
 /* PÁGINAS */
 @import url("./pages/page_hero.css");
@@ -28,4 +28,4 @@
 }
 
 /* ICONES */
-@import url("icons/mainIcons.css");
+@import url("./icons/mainIcons.css");

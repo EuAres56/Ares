@@ -9,16 +9,7 @@
     align-items: end;
     background: radial-gradient(circle at center, rgba(235, 69, 105, 0.1), rgba(26, 0, 6, 0.7) 70%),
         var(--bg-page-hero) no-repeat center center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
     z-index: 0;
 }
 
@@ -326,12 +317,13 @@
         align-items: flex-start;
         height: auto;
         min-height: 100%;
+        max-height: calc(100dvh - var(--space-xl));
     }
 
     .hero-portrait {
         order: -1;
         max-width: 280px;
-        margin-bottom: var(--space-xs);
+        margin-bottom: var(--space-xl);
     }
 
     .hero-content {

@@ -13,9 +13,10 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    height: 100dvh;
+    /* Mudado para dvh para alinhar perfeitamente no Mobile iOS/Android */
     overflow: hidden;
-    /* o motor de cenas controla o scroll internamente */
+    /* O motor de cenas controla o fluxo global */
 }
 
 body {
@@ -23,8 +24,9 @@ body {
     color: var(--color-text-1);
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    line-height: 1.6;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -48,6 +50,7 @@ button {
 img {
     display: block;
     max-width: 100%;
+    height: auto;
 }
 
 h1,
@@ -65,36 +68,73 @@ h4 {
     color: var(--color-text-0);
 }
 
-/* Scrollbars internas (cards, modais) */
-.scroll-thin {
+/* Scrollbars internas customizadas para resoluções baixas */
+* {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-primary-dim) transparent;
+    scrollbar-color: var(--color-primary-glow) transparent;
 }
 
-.scroll-thin::-webkit-scrollbar {
-    width: 5px;
+*::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
 }
 
-.scroll-thin::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background: var(--color-primary-dim);
     border-radius: 10px;
 }
 
-/* Foco visível para acessibilidade — nunca remover */
 :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
     border-radius: 4px;
 }
 
-/* Transição suave ao trocar idioma */
+/* Para navegadores baseados em Webkit (Chrome, Safari, Edge, Opera, Brave) */
+*::-webkit-scrollbar {
+    width: 4px;
+    /* Fina e discreta para manter o visual clean */
+    height: 4px;
+}
+
+/* O trilho por onde o scroll passa (Efeito Glassmorphism) */
+*::-webkit-scrollbar-track {
+    background: transparent;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+/* O indicador de rolagem (Efeito Neon) */
+*::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 20px;
+    /* Cria o efeito de brilho tecnológico/neon discreto */
+    box-shadow: 0 0 4px var(--color-primary-glow);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Feedback visual ao passar o mouse */
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dim);
+    /* Magenta/Neon Pink no hover */
+    box-shadow: 0 0 8px var(--primary-dim);
+}
+
+/* Suporte nativo para Firefox (Mais limitado, mas respeita as cores) */
+@supports (scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        /* Firefox aceita: [Cor do indicador] [Cor do trilho] */
+        scrollbar-color: var(--color-primary-glow) transparent;
+    }
+}
+
 body.i18n-fading [data-i18n],
 body.i18n-fading [data-i18n-attr] {
     transition: opacity .15s ease;
     opacity: .3;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -107,9 +147,7 @@ body.i18n-fading [data-i18n-attr] {
     }
 }
 
-/* =============================================================================================== */
-/* ======================================= UTILITÁRIOS ============================================ */
-/* =============================================================================================== */
+/* Utilitários estruturais globais */
 .eyebrow {
     font-family: var(--font-display);
     font-size: var(--fs-eyebrow);
@@ -139,7 +177,7 @@ body.i18n-fading [data-i18n-attr] {
     font-size: .85rem;
     letter-spacing: .08em;
     text-transform: uppercase;
-    padding: .9rem 1.8rem;
+    padding: .85rem 1.6rem;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;

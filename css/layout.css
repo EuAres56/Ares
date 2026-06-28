@@ -10,7 +10,6 @@
     background: var(--color-bg-0);
 }
 
-/* Pseudo-elemento para projetar a luz vermelha de alerta/processamento para dentro */
 #viewport::after {
     content: '';
     position: absolute;
@@ -18,18 +17,27 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Começa completamente invisível e sem espessura */
     box-shadow: inset 0 0 0px rgba(255, 0, 60, 0);
     pointer-events: none;
     z-index: 9999;
-    /* Fica acima de tudo, envelopando as bordas */
     transition: box-shadow 0.25s ease-in-out;
 }
 
-/* Ativado pelo JS durante todo o processo de troca de telas */
 #viewport.is-transitioning::after {
     box-shadow: inset 0 0 25px rgba(255, 0, 60, 0.55),
         inset 0 0 10px rgba(255, 0, 60, 0.75);
+}
+
+.background-page {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
 }
 
 .scene-container {
@@ -38,41 +46,45 @@
     position: relative;
 }
 
-/* Todas as páginas sobrepostas exatamente no mesmo ponto */
 .section {
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     opacity: 0;
     transform: scale(0.95);
-    /* Estado base em repouso guardado no fundo */
     pointer-events: none;
     visibility: hidden;
-    padding: var(--space-xl);
+    padding: var(--space-xl) var(--page-pad-x);
 
-    /* Transições controladas de saída */
+    overflow: hidden;
+    scrollbar-width: none;
+    /* Esconde barra padrão no Firefox */
+
     transition: opacity 0.35s ease-in-out,
         transform 0.35s ease-in-out,
         visibility 0.35s;
 }
 
-/* ESTADO ATIVO: Página visível e perfeitamente assentada na tela */
+.section::-webkit-scrollbar {
+    display: none;
+    /* Esconde barra padrão no Chrome/Safari para manter estética cyberpunk */
+}
+
+/* ESTADO ATIVO */
 .section.is-active {
     opacity: 1;
     transform: scale(1);
     pointer-events: auto;
     visibility: visible;
     z-index: 5;
-
-    /* Curva Cinética Premium: Desaceleração extrema logo antes de encaixar na posição final */
     transition: opacity 0.45s cubic-bezier(0.15, 0.85, 0.3, 1),
         transform 0.45s cubic-bezier(0.15, 0.85, 0.3, 1),
         visibility 0.45s;
 }
 
-/* ESTADO DE SAÍDA: Transição forçada de encolhimento e esmaecimento controlado */
+/* ESTADO DE SAÍDA */
 .section.is-exiting {
     opacity: 0;
     transform: scale(0.95);
@@ -81,19 +93,19 @@
     z-index: 4;
 }
 
-.section::-webkit-scrollbar {
-    display: none;
-}
-
 .section-inner {
     width: 100%;
-    height: 100%;
+    /* Mudado de height para min-height: previne quebras de alinhamento vertical quando há scroll */
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
     padding-left: var(--nav-width);
     transition: padding var(--t-default);
+    overflow-y: auto;
+    /* Opcional: Esconde a barra de scroll feia do navegador se quiser manter o clima clean */
+    scrollbar-width: thin;
 }
 
 body.nav-collapsed .section-inner {
@@ -116,7 +128,7 @@ body.nav-collapsed .section-inner {
     justify-content: space-between;
     background: linear-gradient(180deg, var(--color-bg-1), var(--color-bg-0));
     border-right: 1px solid var(--color-line);
-    transition: transform var(--t-default);
+    transition: transform var(--t-default), width var(--t-default);
     padding: var(--space-lg) var(--space-md);
 }
 
@@ -133,7 +145,7 @@ body.nav-collapsed #navbar {
 
 .navbar-brand strong {
     font-family: var(--font-display);
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
     color: var(--color-text-0);
     letter-spacing: .05em;
 }
@@ -145,7 +157,7 @@ body.nav-collapsed #navbar {
     color: var(--color-text-2);
 }
 
-/* Índice de navegação — lista das cenas/seções */
+/* Índice de navegação */
 .navbar-index {
     display: flex;
     flex-direction: column;
@@ -162,7 +174,7 @@ body.nav-collapsed #navbar {
     align-items: center;
     gap: var(--space-sm);
     width: 100%;
-    padding: .7rem .5rem;
+    padding: .65rem .5rem;
     border-radius: var(--radius-sm);
     color: var(--color-text-2);
     font-family: var(--font-display);
@@ -257,7 +269,7 @@ body.nav-collapsed #navbar {
     display: block;
     top: 4px;
     left: 4px;
-    width: calc(100% /3 - 8px);
+    width: calc(100% / 3 - 8px);
     height: calc(100% - 8px);
     transition: transform var(--t-default);
     transform: translateX(calc((100% + 8px) * var(--lang)));
@@ -334,17 +346,13 @@ body.nav-collapsed #navbar-toggle .chevron {
     transform: rotate(225deg);
 }
 
-#navbar-toggle:hover .chevron {
-    border-color: var(--color-primary);
-}
-
 /* =============================================================================================== */
-/* ========================================= RESPONSIVO ============================================ */
+/* ================================= MEDIA QUERIES E GAVETA MOBILE ================================ */
 /* =============================================================================================== */
 
 .main-logo {
     position: fixed;
-    top: .5svh;
+    top: var(--space-md);
     right: var(--space-md);
     z-index: 2100;
     width: fit-content;
@@ -357,16 +365,6 @@ body.nav-collapsed #navbar-toggle .chevron {
 
 .main-logo i {
     --size: 100px;
-}
-
-
-/* =============================================================================================== */
-/* ========================================= RESPONSIVO ============================================ */
-/* =============================================================================================== */
-@media (max-width: 900px) {
-    :root {
-        --nav-width: 210px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -382,10 +380,8 @@ body.nav-collapsed #navbar-toggle .chevron {
     }
 
     .section {
-        align-items: flex-start;
-        padding: var(--space-lg) var(--page-pad-x);
-        padding-left: var(--page-pad-x);
-        padding-top: calc(var(--space-xl) + 1rem);
+        padding-top: calc(var(--space-xl) + 2rem);
+        /* Dá espaço seguro abaixo do botão sanduíche mobile */
     }
 
     #navbar-toggle {
@@ -395,18 +391,18 @@ body.nav-collapsed #navbar-toggle .chevron {
     }
 
     body.nav-open #navbar-toggle {
-        left: min(78vw, 280px);
+        left: min(72vw, 245px);
+        /* Ajuste dinâmico para não sobrepor o menu aberto */
     }
 
     body.nav-open #navbar-toggle .chevron {
         transform: rotate(225deg);
     }
 
-    /* overlay escuro atrás da navbar mobile */
     #nav-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, .6);
+        background: rgba(0, 0, 0, .7);
         opacity: 0;
         pointer-events: none;
         transition: opacity var(--t-default);
@@ -422,5 +418,30 @@ body.nav-collapsed #navbar-toggle .chevron {
 @media (min-width: 769px) {
     #nav-overlay {
         display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    .eyebrow {
+        font-size: .7rem !important;
+    }
+
+    .main-logo {
+        transform: translateY(calc(var(--space-sm) * -6)) scale(.8);
+    }
+
+    .main-logo i {
+        --size: 100px;
+    }
+}
+
+/* MONITOR DE ORIENTAÇÃO: TRAVA DE TELA CYBERPUNK */
+@media (orientation: landscape) and (max-width: 932px) {
+    #rotation-lock-overlay {
+        display: flex !important;
+    }
+
+    body {
+        overflow: hidden;
     }
 }

@@ -2,16 +2,8 @@
 /* =========================================== PROJETOS ============================================ */
 /* =============================================================================================== */
 #page-projects-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background: radial-gradient(circle at center, rgba(235, 69, 105, 0.2), rgba(26, 0, 6, 0.4) 100%),
         var(--bg-page-projects) no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
-    z-index: -2;
 }
 
 #section-projects {
@@ -56,6 +48,8 @@
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    overflow-X: auto;
     gap: var(--space-md);
 }
 
@@ -253,6 +247,9 @@
 @media (max-width: 980px) {
     .projects-grid {
         grid-template-columns: 1fr 1fr;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
     }
 }
 

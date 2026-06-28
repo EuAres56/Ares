@@ -43,22 +43,22 @@
     --font-body: 'Oswald', sans-serif;
 
     --fs-eyebrow: .72rem;
-    --fs-body: 1rem;
-    --fs-h3: 1.4rem;
-    --fs-h2: clamp(1.8rem, 3vw, 2.4rem);
-    --fs-h1: clamp(2.2rem, 4.5vw + 1vh, 3.6rem);
-    --fs-display: clamp(2.6rem, 6vw + 1.5vh, 5.2rem);
+    --fs-body: clamp(0.95rem, 1vw + 0.2rem, 1.05rem);
+    --fs-h3: clamp(1.15rem, 1.5vw, 1.4rem);
+    --fs-h2: clamp(1.45rem, 2.5vw, 2.4rem);
+    --fs-h1: clamp(1.85rem, 4vw + 0.5vh, 3.6rem);
+    --fs-display: clamp(2.3rem, 5vw + 1vh, 5.2rem);
 
     /* ---------- ESPAÇAMENTO ---------- */
     --space-xs: .4rem;
     --space-sm: .8rem;
-    --space-md: 1.5rem;
-    --space-lg: 2.2rem;
-    --space-xl: 3rem;
+    --space-md: clamp(1rem, 2vw, 1.5rem);
+    --space-lg: clamp(1.3rem, 3vw, 2.2rem);
+    --space-xl: clamp(1.6rem, 4vw, 3rem);
 
     --nav-width: 240px;
     --nav-width-collapsed: 0px;
-    --page-pad-x: clamp(1.5rem, 6vw, 5rem);
+    --page-pad-x: clamp(1.25rem, 5vw, 5rem);
 
     /* ---------- TRANSIÇÕES ---------- */
     --ease-default: cubic-bezier(.4, 0, .2, 1);
@@ -70,8 +70,25 @@
     --radius-md: 18px;
 }
 
+/* BREAKPOINTS DE INFRAESTRUTURA DOS TOKENS */
+@media (max-width: 1200px) {
+    :root {
+        --nav-width: 210px;
+        /* Encolhe o menu em notebooks compactos */
+    }
+}
+
 @media (max-width: 768px) {
     :root {
+        --nav-width: 0px;
+        /* Libera o espaço lateral no mobile (menu vira gaveta) */
         --page-pad-x: 1.25rem;
+
+        /* ---------- ESPAÇAMENTO ---------- */
+        --space-xs: .2rem;
+        --space-sm: .4rem;
+        --space-md: clamp(.6rem, 2vw, 1.2rem);
+        --space-lg: clamp(.9rem, 3vw, 2.0rem);
+        --space-xl: clamp(1.2rem, 4vw, 2.4rem);
     }
 }

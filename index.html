@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <meta name="description"
         content="Elizeu Sanches (Ares) — Desenvolvedor Full Stack. Soluções digitais sob medida, do design à arquitetura.">
     <title>ARES — Elizeu Sanches | Dev Full Stack</title>
@@ -90,7 +91,7 @@
         <div class="scene-container">
             <!-- ============================== HERO ============================== -->
             <section id="section-hero" class="section">
-                <div id="page-intro-background"></div>
+                <div class="background-page" id="page-intro-background"></div>
                 <div class="section-inner">
 
                     <div class="hero-content">
@@ -147,7 +148,7 @@
 
             <!-- ============================== SOBRE ============================== -->
             <section id="section-about" class="section">
-                <div id="page-about-background"></div>
+                <div class="background-page" id="page-about-background"></div>
 
                 <div class="section-inner">
 
@@ -227,7 +228,7 @@
 
             <!-- ============================== PROJETOS ============================== -->
             <section id="section-projects" class="section">
-                <div id="page-projects-background"></div>
+                <div class="background-page" id="page-projects-background"></div>
 
                 <div class="section-inner">
 
@@ -308,7 +309,7 @@
 
             <!-- ============================== SKILLS ============================== -->
             <section id="section-skills" class="section">
-                <div id="page-skills-background"></div>
+                <div class="background-page" id="page-skills-background"></div>
 
                 <div class="section-inner">
                     <div class="skills-grid">
@@ -337,7 +338,7 @@
 
             <!-- ============================== SERVIÇOS / CTA ============================== -->
             <section id="section-services" class="section">
-                <div id="page-services-background"></div>
+                <div class="background-page" id="page-services-background"></div>
 
                 <div class="section-inner">
                     <div class="services-body">
@@ -442,7 +443,7 @@
 
             <!-- ============================== CONTATO ============================== -->
             <section id="section-contact" class="section">
-                <div id="page-contact-background"></div>
+                <div class="background-page" id="page-contact-background"></div>
 
                 <div class="section-inner">
 
@@ -522,7 +523,12 @@
             <div class="modal-body scroll-thin"></div>
         </div>
     </div>
-
+    <!-- Estrutura do Overlay na raiz do seu HTML -->
+    <div id="rotation-lock-overlay"
+        style="display: none; position: fixed; inset: 0; background: #0a0a0f; z-index: 99999; flex-direction: column; align-items: center; justify-content: center; color: #00ffcc; font-family: monospace; text-align: center; padding: 20px;">
+        <div class="glitch-effect" style="font-size: 2rem; margin-bottom: 15px;">⚠️ SISTEMA COMPROMETIDO</div>
+        <p>Por favor, retorne o dispositivo para o <strong>Modo Retrato</strong> para recalibrar a interface.</p>
+    </div>
     <script type="importmap">
         {
             "imports": {

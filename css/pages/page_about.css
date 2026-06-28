@@ -3,18 +3,8 @@
 /* =============================================================================================== */
 
 #page-about-background {
-    position: absolute;
-    display: flex;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
     background: radial-gradient(circle at center, rgba(235, 69, 105, 0.1), rgba(26, 0, 6, 0.7) 90%),
         var(--bg-page-about) no-repeat center center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 }
 
 #section-about .section-inner {
@@ -224,10 +214,31 @@
     color: var(--color-primary-dim);
 }
 
-/* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS */
+/* No seu arquivo de SOBRE, substitua o bloco @media existente por este: */
 @media (max-width: 768px) {
+    #section-about .section-inner {
+        flex-direction: column;
+        justify-content: space-between;
+        /* Transforma linha em coluna */
+        gap: var(--space-md);
+        overflow-x: hidden;
+    }
+
+    .about-header {
+        padding-top: var(--space-md);
+        /* Reduz os 15svh que empurrariam o texto para baixo */
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .dossier-scene {
+        padding: var(--space-md) 0;
+        /* Controla o espaçamento do palco 3D */
+    }
+
     .dossier-container {
         height: 520px;
+        max-height: 45dvh;
         transform: rotateX(8deg) rotateY(-4deg);
     }
 
@@ -248,6 +259,11 @@
         font-size: 0.6rem;
     }
 
+    .sheet {
+        width: 90%;
+        justify-self: center;
+    }
+
     @keyframes engineShuffle {
         0% {
             transform: translate3d(0, 0, 40px) rotateY(0deg);
@@ -259,7 +275,6 @@
             z-index: 4;
         }
 
-        /* No mobile ela flutua para cima */
         55% {
             transform: translate3d(0%, -105%, -60px) rotateX(-90deg);
             z-index: 1;

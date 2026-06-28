@@ -16,6 +16,9 @@
 @import url("./pages/page_services.css");
 @import url("./pages/page_contact.css");
 
+/* ICONES */
+@import url("./icons/mainIcons.css");
+
 :root {
     --bg-page-hero: url('../../assets/images/Bg_hero.webp');
     --bg-page-about: url('../../assets/images/Bg_about.webp');
@@ -26,6 +29,3 @@
 
     --img-profile: url('../../assets/images/Ares.webp');
 }
-
-/* ICONES */
-@import url("./icons/mainIcons.css");

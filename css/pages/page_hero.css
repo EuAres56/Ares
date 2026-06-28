@@ -1,0 +1,351 @@
+/* =============================================================================================== */
+/* ============================================= HERO =============================================== */
+/* =============================================================================================== */
+
+#page-intro-background {
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    background: radial-gradient(circle at center, rgba(235, 69, 105, 0.1), rgba(26, 0, 6, 0.7) 70%),
+        var(--bg-page-hero) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+
+#canvas-intro {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#section-hero .section-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    align-items: center;
+    gap: var(--space-xl);
+    height: 100%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.hero-kicker {
+    margin-bottom: var(--space-sm);
+}
+
+.hero-title {
+    font-size: var(--fs-display);
+    line-height: .92;
+    letter-spacing: -.01em;
+}
+
+.line-accent {
+    color: var(--color-primary);
+    text-shadow: var(--glow-md);
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: var(--color-text-1);
+    max-width: 46ch;
+    font-weight: 300;
+}
+
+.hero-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .8rem;
+    margin-top: var(--space-xs);
+}
+
+.hero-stack span {
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-text-2);
+    padding: .35rem .8rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 999px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.hero-scroll-cue {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-top: var(--space-sm);
+    color: var(--color-text-2);
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.hero-scroll-cue .cue-line {
+    width: 36px;
+    height: 1px;
+    background: var(--color-text-2);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-scroll-cue .cue-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    animation: cueSlide 2.2s ease-in-out infinite;
+}
+
+@keyframes cueSlide {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* ---------------------------- RETRATO + CAMADA TECH ---------------------------- */
+
+.hero-portrait {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-width: 460px;
+    margin-inline: auto;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--color-bg-2), var(--color-bg-0));
+    /* filter: brightness(0.95) contrast(1.05) saturate(0.9); */
+    border: 1px solid var(--color-line);
+    box-shadow: var(--glow-md);
+}
+
+.hero-portrait::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: var(--radius-md);
+    background: var(--img-profile) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(.45) contrast(1.05);
+    pointer-events: none;
+    border: 5px solid var(--color-secondary);
+
+}
+
+
+/* duotone overlay sobre a imagem real */
+.hero-portrait .portrait-duotone {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(255, 0, 55, .55), rgba(8, 8, 10, .75) 75%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+/* scanlines horizontais animadas */
+.hero-portrait .portrait-scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    box-shadow: 0 0 14px var(--color-primary-glow);
+    opacity: .9;
+    animation: scanMove 4.5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanMove {
+    0% {
+        top: -5%;
+        opacity: 0;
+    }
+
+    8% {
+        opacity: .85;
+    }
+
+    92% {
+        opacity: .85;
+    }
+
+    100% {
+        top: 102%;
+        opacity: 0;
+    }
+}
+
+/* grid técnico sutil sobreposto */
+.hero-portrait .portrait-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--color-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: .35;
+    pointer-events: none;
+}
+
+/* moldura com cantos tech */
+.hero-portrait .portrait-corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 3px solid var(--color-primary);
+    opacity: .9;
+    pointer-events: none;
+}
+
+.portrait-corner.tl {
+    top: 20px;
+    left: 20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.portrait-corner.tr {
+    top: 20px;
+    right: 20px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.portrait-corner.bl {
+    bottom: 20px;
+    left: 20px;
+    border-right: none;
+    border-top: none;
+}
+
+.portrait-corner.br {
+    bottom: 20px;
+    right: 20px;
+    border-left: none;
+    border-top: none;
+}
+
+.portrait-tag {
+    position: absolute;
+    bottom: 20px;
+    left: 28px;
+    font-family: var(--font-display);
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--color-text-0);
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(6px);
+    padding: .4rem .7rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.portrait-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+    animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .35;
+    }
+}
+
+/* partículas de fundo ambiente (canvas injetado via JS) */
+#hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#section-hero .section-inner {
+    position: relative;
+    z-index: 1;
+}
+
+/* =============================================================================================== */
+@media (max-width: 900px) {
+    #section-hero .section-inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: var(--space-lg);
+        align-items: flex-start;
+        height: auto;
+        min-height: 100%;
+    }
+
+    .hero-portrait {
+        order: -1;
+        max-width: 280px;
+        margin-bottom: var(--space-xs);
+    }
+
+    .hero-content {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        justify-content: center;
+    }
+}

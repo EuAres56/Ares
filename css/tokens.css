@@ -1,0 +1,77 @@
+/* =============================================================================================== */
+/* ============================================ TOKENS ============================================ */
+/* =============================================================================================== */
+/* Sistema de design único: ARES — vermelho-sangue sobre preto profundo, tipografia tech/heroica */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Oswald:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* ---------- PALETA ---------- */
+    --color-primary: #ff0037;
+    --color-primary-dim: #b8002a;
+    --color-primary-glow: rgba(255, 0, 55, .55);
+
+    --color-secondary: #1b1b1b;
+    --color-secondary-dim: rgb(59, 59, 59);
+    --color-secondary-glow: rgba(29, 29, 29, 0.55);
+
+    --color-bg-0: #08080a;
+    --color-bg-1: #0f0f12;
+    --color-bg-2: #17171b;
+    --color-bg-3: #1f1f24;
+
+    --color-text-0: #ffffff;
+    --color-text-1: #c7c7cf;
+    --color-text-2: #84848d;
+    --color-text-3: #4a4a52;
+
+    --color-line: rgba(255, 255, 255, .08);
+    --color-line-strong: rgba(255, 255, 255, .14);
+
+    --color-white-glow: rgba(255, 255, 255, .55);
+
+    /* sombras / brilho assinatura */
+    --glow-sm: 0 0 8px var(--color-primary-glow);
+    --glow-md: 0 0 24px var(--color-primary-glow);
+    --glow-lg: 0 0 60px var(--color-primary-glow);
+    --shadow-card: 0 20px 50px rgba(0, 0, 0, .55);
+    --shadow-card-1: 5px 10px 30px rgba(0, 0, 0, 0.6);
+    --shadow-card-2: 5px -10px 30px rgba(0, 0, 0, 0.6);
+
+    /* ---------- TIPOGRAFIA ---------- */
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Oswald', sans-serif;
+
+    --fs-eyebrow: .72rem;
+    --fs-body: 1rem;
+    --fs-h3: 1.4rem;
+    --fs-h2: clamp(1.8rem, 3vw, 2.4rem);
+    --fs-h1: clamp(2.2rem, 4.5vw + 1vh, 3.6rem);
+    --fs-display: clamp(2.6rem, 6vw + 1.5vh, 5.2rem);
+
+    /* ---------- ESPAÇAMENTO ---------- */
+    --space-xs: .4rem;
+    --space-sm: .8rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.2rem;
+    --space-xl: 3rem;
+
+    --nav-width: 240px;
+    --nav-width-collapsed: 0px;
+    --page-pad-x: clamp(1.5rem, 6vw, 5rem);
+
+    /* ---------- TRANSIÇÕES ---------- */
+    --ease-default: cubic-bezier(.4, 0, .2, 1);
+    --t-fast: .25s var(--ease-default);
+    --t-default: .5s var(--ease-default);
+    --t-slow: .9s var(--ease-default);
+
+    --radius-sm: 10px;
+    --radius-md: 18px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --page-pad-x: 1.25rem;
+    }
+}

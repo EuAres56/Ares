@@ -1,0 +1,268 @@
+/* =============================================================================================== */
+/* =========================================== PROJETOS ============================================ */
+/* =============================================================================================== */
+#page-projects-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(235, 69, 105, 0.2), rgba(26, 0, 6, 0.4) 100%),
+        var(--bg-page-projects) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+#section-projects {
+    position: relative;
+}
+
+#projects-blueprint {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#section-projects .section-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    position: relative;
+    z-index: 1;
+}
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.projects-header h2 {
+    font-size: var(--fs-h1);
+    max-width: 18ch;
+    line-height: 1.05;
+}
+
+.projects-header p {
+    max-width: 42ch;
+    color: var(--color-text-1);
+    font-weight: 300;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+.project-card {
+    perspective: 1000px;
+    border-radius: var(--radius-md);
+    --mx: 50%;
+    --my: 50%;
+}
+
+.project-card-inner {
+    position: relative;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-line);
+    background: var(--color-bg-1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: border-color var(--t-fast), box-shadow var(--t-default);
+}
+
+.project-card:hover .project-card-inner {
+    border-color: var(--color-primary-dim);
+    box-shadow: var(--shadow-card);
+}
+
+/* Glow que acompanha o cursor — só visível no hover */
+.project-card-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: radial-gradient(circle at var(--mx) var(--my), var(--color-primary-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--t-fast);
+    pointer-events: none;
+}
+
+.project-card:hover .project-card-inner::before {
+    opacity: .35;
+}
+
+/* borda de "circuito" que percorre o perímetro no hover */
+.project-card-inner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background:
+        linear-gradient(var(--color-bg-1), var(--color-bg-1)) padding-box,
+        conic-gradient(from var(--circuit-angle, 0deg), transparent 0% 70%, var(--color-primary) 85%, transparent 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--t-fast);
+    pointer-events: none;
+    animation: circuitSpin 3.5s linear infinite paused;
+}
+
+.project-card:hover .project-card-inner::after {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+@keyframes circuitSpin {
+    to {
+        --circuit-angle: 360deg;
+    }
+}
+
+@property --circuit-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.project-thumb {
+    position: relative;
+    aspect-ratio: 16/10;
+    background: linear-gradient(150deg, var(--color-bg-3), var(--color-bg-0));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform var(--t-fast);
+    will-change: transform;
+}
+
+.project-thumb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--color-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: .4;
+}
+
+.project-thumb i {
+    position: relative;
+    z-index: 1;
+    color: var(--color-text-3);
+    transition: color var(--t-fast);
+}
+
+.project-card:hover .project-thumb i {
+    color: var(--color-primary-dim);
+}
+
+.project-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: .62rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .3rem .65rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .55);
+    color: var(--color-text-1);
+    backdrop-filter: blur(6px);
+    z-index: 4;
+}
+
+.project-body {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--t-fast);
+    will-change: transform;
+}
+
+.project-tags {
+    display: flex;
+    gap: .4rem;
+    flex-wrap: wrap;
+    margin-bottom: .2rem;
+}
+
+.project-tags span {
+    font-size: .65rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-dim);
+    padding: .15rem .55rem;
+    border-radius: 999px;
+}
+
+.project-body h3 {
+    font-size: 1.2rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-text-0);
+}
+
+.project-body p {
+    font-size: .88rem;
+    color: var(--color-text-2);
+    flex: 1;
+}
+
+.project-link {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-text-1);
+    margin-top: var(--space-xs);
+    transition: color var(--t-fast), gap var(--t-fast);
+}
+
+.project-link:hover {
+    color: var(--color-primary);
+    gap: .65rem;
+}
+
+.projects-more {
+    align-self: center;
+}
+
+/* =============================================================================================== */
+@media (max-width: 980px) {
+    .projects-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

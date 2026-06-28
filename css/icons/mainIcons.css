@@ -1,0 +1,85 @@
+@import url(./geral.css);
+@import url(./navigation.css);
+@import url(./social.css);
+@import url(./tech.css);
+@import url(./brand.css);
+
+
+i {
+    --size: 12px;
+
+    width: var(--size);
+    height: var(--size);
+    display: inline-block;
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+i.is_auto_w {
+    --size: 3svw;
+}
+
+i.is_1 {
+    --size: 10px;
+}
+
+i.is_2 {
+    --size: 12px;
+}
+
+i.is_3 {
+    --size: 16px;
+}
+
+i.is_4 {
+    --size: 20px;
+}
+
+i.is_5 {
+    --size: 24px;
+}
+
+i.is_6 {
+    --size: 30px;
+}
+
+i.is_7 {
+    --size: 36px;
+}
+
+i.is_8 {
+    --size: 48px;
+}
+
+i.is_9 {
+    --size: 60px;
+}
+
+i.is_10 {
+    --size: 80px;
+}
+
+i.is_11 {
+    --size: 100px;
+}
+
+i.is_12 {
+    --size: 120px;
+}
+
+i.is_13 {
+    --size: 140px;
+}
+
+i.is_14 {
+    --size: 180px;
+}
+
+i.is_15 {
+    --size: 250px;
+}

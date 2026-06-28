@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Elizeu Sanches (Ares) — Desenvolvedor Full Stack. Soluções digitais sob medida, do design à arquitetura.">
+    <title>ARES — Elizeu Sanches | Dev Full Stack</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body id="body-theme">
+    <div class="main-logo">
+        <i class="logo-zero1"></i>
+    </div>
+
+    <!-- =====================================================================
+         NAVBAR — índice fixo com retorno rápido a qualquer cena
+    ===================================================================== -->
+    <button id="navbar-toggle" aria-label="Abrir ou fechar menu">
+        <span class="chevron"></span>
+    </button>
+    <div id="nav-overlay"></div>
+
+    <nav id="navbar">
+        <div class="navbar-brand">
+            <strong data-i18n="nav.brand_name">ARES</strong>
+            <span data-i18n="nav.brand_role">Dev Full Stack</span>
+        </div>
+
+        <ul class="navbar-index">
+            <li data-scene-id="hero" class="is-current">
+                <button type="button"><span class="index-num">01</span><span
+                        data-i18n="nav.index_hero">Início</span></button>
+            </li>
+            <li data-scene-id="about">
+                <button type="button"><span class="index-num">02</span><span
+                        data-i18n="nav.index_about">Sobre</span></button>
+            </li>
+            <li data-scene-id="projects">
+                <button type="button"><span class="index-num">03</span><span
+                        data-i18n="nav.index_projects">Projetos</span></button>
+            </li>
+            <li data-scene-id="skills">
+                <button type="button"><span class="index-num">04</span><span
+                        data-i18n="nav.index_skills">Habilidades</span></button>
+            </li>
+            <li data-scene-id="services">
+                <button type="button"><span class="index-num">05</span><span
+                        data-i18n="nav.index_services">Serviços</span></button>
+            </li>
+            <li data-scene-id="contact">
+                <button type="button"><span class="index-num">06</span><span
+                        data-i18n="nav.index_contact">Contato</span></button>
+            </li>
+        </ul>
+
+        <div class="navbar-footer">
+            <div class="lang-switch">
+                <button class="lang-btn" type="button" data-lang="pt">PT</button>
+                <button class="lang-btn" type="button" data-lang="en">EN</button>
+                <button class="lang-btn" type="button" data-lang="es">ES</button>
+            </div>
+            <div class="navbar-social">
+                <a href="https://github.com/EuAres56" target="_blank" rel="noopener" aria-label="GitHub">
+                    <i class="is_4 github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/elizeu-sanches-69a155373/" target="_blank" rel="noopener"
+                    aria-label="LinkedIn">
+                    <i class="is_4 linkedin"></i>
+                </a>
+                <a href="" target="_blank" rel="noopener" aria-label="whatsapp">
+                    <i class="is_4 whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =====================================================================
+         VIEWPORT — motor de cenas (slide deck)
+    ===================================================================== -->
+    <main id="viewport">
+
+        <!-- Container linear de alta performance -->
+        <div class="scene-container">
+            <!-- ============================== HERO ============================== -->
+            <section id="section-hero" class="section">
+                <div id="page-intro-background"></div>
+                <div class="section-inner">
+
+                    <div class="hero-content">
+                        <p class="eyebrow hero-kicker" data-i18n="hero.kicker">Desenvolvedor Full Stack</p>
+
+                        <h1 class="hero-title">
+                            <span data-i18n="hero.title_line1">Transformo ideias</span><br>
+                            <span data-i18n="hero.title_line2">em</span>
+                            <span class="line-accent" data-i18n="hero.title_line2_accent">código real</span>
+                        </h1>
+
+                        <p class="hero-subtitle" data-i18n="hero.subtitle">
+                            Soluções digitais sob medida — do design à arquitetura — construídas com controle
+                            total sobre performance e experiência.
+                        </p>
+
+                        <div class="hero-stack">
+                            <span data-i18n="hero.stack_1">HTML / CSS / JS Nativos</span>
+                            <span data-i18n="hero.stack_2">React</span>
+                            <span data-i18n="hero.stack_3">Django</span>
+                            <span data-i18n="hero.stack_4">Flask</span>
+                            <span data-i18n="hero.stack_5">PostgreSQL</span>
+                        </div>
+
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" data-goto="projects" data-i18n="hero.cta_primary">Ver
+                                projetos</button>
+                            <button class="btn btn-ghost" data-goto="contact" data-i18n="hero.cta_secondary">Falar
+                                comigo</button>
+                        </div>
+
+                        <div class="hero-scroll-cue">
+                            <span class="cue-line"></span>
+                            <span data-i18n="hero.scroll_cue">Role para explorar</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-portrait">
+                        <div class="portrait-duotone"></div>
+                        <div class="portrait-grid"></div>
+                        <div class="portrait-scan"></div>
+                        <span class="portrait-corner tl"></span>
+                        <span class="portrait-corner tr"></span>
+                        <span class="portrait-corner bl"></span>
+                        <span class="portrait-corner br"></span>
+                        <div class="portrait-tag">
+                            <span class="dot"></span>
+                            <span data-i18n="hero.portrait_tag">Disponível para novos projetos</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================== SOBRE ============================== -->
+            <section id="section-about" class="section">
+                <div id="page-about-background"></div>
+
+                <div class="section-inner">
+
+                    <div class="about-header">
+                        <p class="eyebrow" data-i18n="about.eyebrow">Quem está por trás do código</p>
+                        <h2>
+                            <span data-i18n="about.title_line1">Código com </span>
+                            <span class="line-accent" data-i18n="about.title_line2">propósito,</span>
+                            <span data-i18n="about.title_line3">não só complexidade</span>
+                        </h2>
+
+                        <p data-i18n="about.intro">
+                            Desenvolvedor Full Stack e Web Designer movido pela ideia de que tecnologia deve
+                            resolver problemas reais.
+                        </p>
+                    </div>
+
+                    <div class="dossier-scene">
+                        <div class="dossier-container" id="dossierEngine">
+
+                            <div class="sheet pos-front" data-index="0">
+                                <div class="tab" data-i18n="nav.index_about">01. SOBRE</div>
+                                <div class="doc-header">
+                                    <span>FILE: ARES_PROFI.SYS</span>
+                                    <span>STATUS: ACTIVE</span>
+                                </div>
+                                <h3 class="doc-title" data-i18n="about.card_ares_title">Quem é Ares</h3>
+                                <div class="doc-body">
+                                    <p data-i18n="about.card_ares_text">Carregando dados biográficos...</p>
+                                </div>
+                                <div class="watermark">AR-01</div>
+                                <div class="metadata-grid">
+                                    <div>REF: #000941A</div>
+                                    <div style="text-align: right;">TYPE: INTEL_BIO</div>
+                                </div>
+                            </div>
+
+                            <div class="sheet pos-middle" data-index="1">
+                                <div class="tab" data-i18n="about.card_bio_title">02. TRAJETÓRIA</div>
+                                <div class="doc-header">
+                                    <span>FILE: TIMELINE.SYS</span>
+                                    <span>STATUS: ARCHIVED</span>
+                                </div>
+                                <h3 class="doc-title" data-i18n="about.card_bio_title">Trajetória</h3>
+                                <div class="doc-body">
+                                    <p data-i18n="about.card_bio_text">Carregando histórico profissional...</p>
+                                </div>
+                                <div class="watermark">TR-02</div>
+                                <div class="metadata-grid">
+                                    <div>LOG_TIMELINE: 2020_2026</div>
+                                    <div style="text-align: right;">TYPE: HIST_REC</div>
+                                </div>
+                            </div>
+
+                            <div class="sheet pos-back" data-index="2">
+                                <div class="tab" data-i18n="about.card_objetivos_title">03. OBJETIVOS</div>
+                                <div class="doc-header">
+                                    <span>FILE: TARGETS.SYS</span>
+                                    <span>STATUS: PENDING</span>
+                                </div>
+                                <h3 class="doc-title" data-i18n="about.card_objetivos_title">Objetivos</h3>
+                                <div class="doc-body">
+                                    <p data-i18n="about.card_objetivos_text">Carregando diretrizes futuras...</p>
+                                </div>
+                                <div class="watermark">OB-03</div>
+                                <div class="metadata-grid">
+                                    <div>TARGET_GOAL: ACT_01</div>
+                                    <div style="text-align: right;">TYPE: STRAT_PLAN</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================== PROJETOS ============================== -->
+            <section id="section-projects" class="section">
+                <div id="page-projects-background"></div>
+
+                <div class="section-inner">
+
+                    <div class="projects-header">
+                        <div>
+                            <p class="eyebrow" data-i18n="projects.eyebrow">Trabalho recente</p>
+                            <h2 data-i18n="projects.title">Projetos selecionados</h2>
+                        </div>
+                        <p data-i18n="projects.subtitle">
+                            Cada projeto nasce de um problema real.
+                        </p>
+                    </div>
+
+                    <div id="projects-grid" class="projects-grid">
+
+                        <article class="project-card">
+                            <div class="project-card-inner">
+                                <div class="project-thumb">
+                                    <span class="project-status" data-i18n="projects.status_progress">Em
+                                        desenvolvimento</span>
+                                    <i class="is_10 nodejs"></i>
+                                </div>
+                                <div class="project-body">
+                                    <div class="project-tags"><span>Node.js</span><span>PostgreSQL</span></div>
+                                    <h3 data-i18n="projects.p1_title">Sistema administrativo modular</h3>
+                                    <p data-i18n="projects.p1_desc">Painel de gestão construído com arquitetura modular.
+                                    </p>
+                                    <a href="#" class="project-link"><span data-i18n="projects.view_project">Ver
+                                            projeto</span>
+                                        →</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card">
+                            <div class="project-card-inner">
+                                <div class="project-thumb">
+                                    <span class="project-status" data-i18n="projects.status_concept">Estudo de
+                                        caso</span>
+                                    <i class="is_10 html5"></i>
+                                </div>
+                                <div class="project-body">
+                                    <div class="project-tags"><span>HTML/CSS/JS</span><span>UX</span></div>
+                                    <h3 data-i18n="projects.p2_title">Landing page de alta conversão</h3>
+                                    <p data-i18n="projects.p2_desc">Página voltada a captação de leads.</p>
+                                    <a href="#" class="project-link"><span data-i18n="projects.view_project">Ver
+                                            projeto</span>
+                                        →</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card">
+                            <div class="project-card-inner">
+                                <div class="project-thumb">
+                                    <span class="project-status" data-i18n="projects.status_concept">Estudo de
+                                        caso</span>
+                                    <i class="is_10 python"></i>
+                                </div>
+                                <div class="project-body">
+                                    <div class="project-tags"><span>Python</span><span>Pandas</span></div>
+                                    <h3 data-i18n="projects.p3_title">Automação de relatórios</h3>
+                                    <p data-i18n="projects.p3_desc">Script que organiza e gera planilhas
+                                        automaticamente.
+                                    </p>
+                                    <a href="#" class="project-link"><span data-i18n="projects.view_project">Ver
+                                            projeto</span>
+                                        →</a>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <p class="projects-more eyebrow" data-i18n="projects.more">Mais projetos em breve</p>
+                </div>
+            </section>
+
+            <!-- ============================== SKILLS ============================== -->
+            <section id="section-skills" class="section">
+                <div id="page-skills-background"></div>
+
+                <div class="section-inner">
+                    <div class="skills-grid">
+                        <div>
+                            <div class="skills-header">
+                                <p class="eyebrow" data-i18n="skills.eyebrow">Ferramentas e fundamentos</p>
+                                <h2 data-i18n="skills.title">O que eu domino</h2>
+                                <p data-i18n="skills.subtitle">Prefiro entender os fundamentos antes de depender de
+                                    frameworks.
+                                </p>
+                            </div>
+                            <div class="skills-philosophy">
+                                <h4 data-i18n="skills.philosophy_title">Por que nativo?</h4>
+                                <p data-i18n="skills.philosophy_text">
+                                    A maior parte das minhas soluções é construída em HTML, CSS e JavaScript nativos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="scene" id="skills-scene"></div>
+                    </div>
+
+
+                </div>
+            </section>
+
+            <!-- ============================== SERVIÇOS / CTA ============================== -->
+            <section id="section-services" class="section">
+                <div id="page-services-background"></div>
+
+                <div class="section-inner">
+                    <div class="services-body">
+                        <div class="services-header">
+                            <p class="eyebrow" data-i18n="services.eyebrow">Como posso ajudar</p>
+                            <h2 data-i18n="services.title">Soluções sob medida, não modelos prontos</h2>
+                            <p data-i18n="services.subtitle">
+                                Cada projeto é avaliado individualmente. O que une todos eles é o compromisso com
+                                performance,
+                                clareza e um resultado que realmente resolve o problema.
+                            </p>
+                            <div class="trust-strip">
+                                <div class="trust-item">
+                                    <strong data-i18n="services.trust_1_num">100%</strong>
+                                    <span data-i18n="services.trust_1_label">Código sob controle</span>
+                                </div>
+                                <div class="trust-item">
+                                    <strong data-i18n="services.trust_2_num">3+</strong>
+                                    <span data-i18n="services.trust_2_label">Áreas de atuação</span>
+                                </div>
+                                <div class="trust-item">
+                                    <strong data-i18n="services.trust_3_num">24h</strong>
+                                    <span data-i18n="services.trust_3_label">Tempo médio de resposta</span>
+                                </div>
+                            </div>
+
+                            <div class="finish-cta">
+                                <div class="finish-cta-text">
+                                    <h3 data-i18n="services.cta_title">Tem um projeto em mente?</h3>
+                                    <p data-i18n="services.cta_text">Me conte sobre ele — sem compromisso.</p>
+                                </div>
+                                <button class="btn btn-primary" data-goto="contact"
+                                    data-i18n="services.cta_button">Iniciar
+                                    conversa</button>
+                            </div>
+                        </div>
+
+                        <div class="services-container">
+                            <div id="services-3d"></div>
+                            <div class="services-grid">
+
+                                <!-- Card 1: Sites e Landing Pages -->
+                                <div class="service-card">
+                                    <div class="service-icon">
+                                        <i class="is_10 code"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h3 data-i18n="services.s1_title">Sites e landing pages</h3>
+                                        <p>Páginas de alta conversão e performance extrema, construídas sob medida com
+                                            código nativo
+                                            e foco absoluto na experiência do usuário (UX).</p>
+                                        <div class="service-stack">
+                                            <span>HTML5 Nativo</span>
+                                            <span>CSS3 Avançado</span>
+                                            <span>JS Performance</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Automação de Processos -->
+                                <div class="service-card">
+                                    <div class="service-icon">
+                                        <i class="is_10 automation"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h3 data-i18n="services.s2_title">Automação de processos</h3>
+                                        <p>Eliminação de tarefas repetitivas através de scripts inteligentes e fluxos
+                                            automatizados,
+                                            integrando ferramentas e otimizando o seu tempo.</p>
+                                        <div class="service-stack">
+                                            <span>Python</span>
+                                            <span>Node.js</span>
+                                            <span>Scripts / Cron</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3: Sistemas e Integrações -->
+                                <div class="service-card">
+                                    <div class="service-icon">
+                                        <i class="is_10 system-log"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h3 data-i18n="services.s3_title">Sistemas e integrações</h3>
+                                        <p>Desenvolvimento de plataformas robustas, APIs seguras e painéis
+                                            administrativos
+                                            modulares
+                                            conectados perfeitamente ao seu ecossistema de dados.</p>
+                                        <div class="service-stack">
+                                            <span>Full Stack</span>
+                                            <span>APIs Restful</span>
+                                            <span>Supabase / R2</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== CONTATO ============================== -->
+            <section id="section-contact" class="section">
+                <div id="page-contact-background"></div>
+
+                <div class="section-inner">
+
+                    <div class="contact-content">
+                        <p class="eyebrow" data-i18n="contact.eyebrow">Vamos conversar</p>
+                        <h2 data-i18n="contact.title">Conte-me sobre seu projeto</h2>
+                        <p data-i18n="contact.subtitle">Respondo pessoalmente.</p>
+
+                        <div class="contact-channels">
+                            <a class="contact-channel" href="mailto:contato@elizeusanches.dev">
+                                <span class="ch-icon"><svg viewBox="0 0 24 24">
+                                        <path
+                                            d="M2 4h20v16H2V4zm2 2v.01L12 12l8-5.99V6H4zm16 2.43-8 6L4 8.43V18h16V8.43z" />
+                                    </svg></span>
+                                <span class="ch-text">
+                                    <strong data-i18n="contact.ch_email_label">E-mail</strong>
+                                    <span data-i18n="contact.ch_email_value">contato@elizeusanches.dev</span>
+                                </span>
+                            </a>
+                            <a class="contact-channel" href="#" target="_blank" rel="noopener">
+                                <span class="ch-icon"><svg viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                                    </svg></span>
+                                <span class="ch-text">
+                                    <strong data-i18n="contact.ch_whats_label">WhatsApp</strong>
+                                    <span data-i18n="contact.ch_whats_value">Resposta rápida</span>
+                                </span>
+                            </a>
+                            <a class="contact-channel" href="https://www.linkedin.com/in/elizeu-sanches-69a155373/"
+                                target="_blank" rel="noopener">
+                                <span class="ch-icon"><svg viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                                    </svg></span>
+                                <span class="ch-text">
+                                    <strong data-i18n="contact.ch_linkedin_label">LinkedIn</strong>
+                                    <span data-i18n="contact.ch_linkedin_value">Elizeu Sanches</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <label for="form-name" data-i18n="contact.form_name">Nome</label>
+                            <input id="form-name" type="text" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="form-email" data-i18n="contact.form_email">E-mail</label>
+                            <input id="form-email" type="email" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="form-message" data-i18n="contact.form_message">Mensagem</label>
+                            <textarea id="form-message" rows="4"
+                                data-i18n-attr="placeholder:contact.form_message_placeholder" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n="contact.form_submit">Enviar
+                            mensagem</button>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- =====================================================================
+         MODAL — leitura expandida (cards do Sobre)
+    ===================================================================== -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3></h3>
+                <button class="modal-close" aria-label="Fechar">✕</button>
+            </div>
+            <div class="modal-body scroll-thin"></div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

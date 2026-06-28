@@ -1,0 +1,392 @@
+/* =============================================================================================== */
+/* ============================================ SKILLS ============================================= */
+/* =============================================================================================== */
+#page-skills-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at bottom right, rgba(235, 69, 105, 0.2), rgba(14, 0, 3, 0.7) 50%),
+        var(--bg-page-skills) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+#section-skills .section-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.skills-header {
+    max-width: 60ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.skills-header h2 {
+    font-size: var(--fs-h1);
+    line-height: 1.05;
+}
+
+.skills-header p {
+    color: var(--color-text-1);
+    font-weight: 300;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: minmax(250px, 18svw) minmax(400px, 70svw);
+    gap: var(--space-xl);
+}
+
+/* Filosofia de stack — texto editorial ao lado, reforça "soluções sob medida" */
+.skills-philosophy {
+    border-top: 1px solid var(--color-line);
+    padding-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.skills-philosophy h4 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    letter-spacing: .03em;
+}
+
+.skills-philosophy p {
+    color: var(--color-text-1);
+    font-size: .95rem;
+    line-height: 1.75;
+}
+
+
+/* =============================================================================================== */
+/* ===================================== BLOQUINHOS 3D (RETRATO) =================================== */
+/* =============================================================================================== */
+
+/* Container que fornece a perspectiva 3D */
+.scene {
+    height: 60svh;
+    perspective: 2000px;
+    position: relative;
+}
+
+/* Estilo base do bloco — agora em proporção retrato (mais alto que largo) */
+.notebook {
+    width: clamp(200px, 15svw, 320px);
+    aspect-ratio: 9/10;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all .5s cubic-bezier(0.64, 0.04, 0.35, 1);
+    cursor: pointer;
+    border-radius: 8px 8px 4px 4px;
+}
+
+/* Estados de Posicionamento */
+.notebook.open {
+    z-index: 10;
+    left: 30%;
+    top: 50%;
+    transform:
+        translateY(-10%) translateX(0%) rotateX(-3deg) rotateY(2deg);
+}
+
+.notebook.closed {
+    transition: all .5s cubic-bezier(0.64, 0.04, 0.35, 1), opacity 0.3s ease;
+    transform: translateY(-5px);
+}
+
+.notebook.closed:hover {
+    box-shadow: 15px 20px 30px var(--color-primary-glow);
+}
+
+/* Posições da Pilha à direita */
+.notebook.closed.stack-1 {
+    left: 65%;
+    top: 25%;
+    transform: translateY(-50%) rotateZ(6deg) rotateX(6deg);
+    z-index: 1;
+}
+
+.notebook.closed.stack-2 {
+    left: 67%;
+    top: 65%;
+    transform: translateY(-50%) rotateZ(-7deg) rotateX(15deg);
+    z-index: 3;
+}
+
+/* =============================================================================================== */
+/* PÁGINAS — giram a partir da borda de CIMA (modo bloco de anotações), tombando para trás           */
+/* =============================================================================================== */
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-bg-1);
+    border: 1px solid var(--color-line);
+    border-radius: 8px 8px 4px 4px;
+    transform-origin: top center;
+    transition: transform 0.8s cubic-bezier(0.64, 0.04, 0.35, 1), z-index 0s;
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 29px;
+    font-size: clamp(1rem, 10%, 2.1rem);
+    color: var(--accent-color);
+    user-select: none;
+    box-shadow: var(--shadow-card-1);
+}
+
+/* Linhas da página simulando um bloco de anotações real */
+.page:not(.cover)::after {
+    content: '';
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 20px;
+    right: 20px;
+    background-image: repeating-linear-gradient(transparent, transparent 29px, var(--color-text-1) 30px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* "Espiral" no topo — reforça a leitura de bloco de anotações */
+.page:not(.cover)::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 16px;
+    right: 16px;
+    height: 6px;
+    background-image: radial-gradient(circle, var(--color-primary) 2.5px, transparent 2.6px);
+    background-size: 18px 6px;
+    background-repeat: repeat-x;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Capa do bloco */
+.page.cover {
+    position: relative;
+    background-color: var(--color-bg-1);
+    color: var(--color-text-0);
+    font-weight: bold;
+    font-size: clamp(1.1rem, 10%, 2.5rem);
+    border: 1px solid var(--color-line-strong);
+}
+
+/* fundo da capa */
+.page.cover::before {
+    position: absolute;
+    content: '';
+    top: 10px;
+    left: 10px;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    border-radius: 12px;
+    background: var(--color-bg-1);
+    border: 1px solid var(--color-line);
+    pointer-events: none;
+    z-index: 5;
+    transform: translateZ(-1px);
+
+}
+
+
+/* Quando o bloco está aberto, a capa fica no fundo da pilha (atrás de tudo) e para de
+   capturar cliques, para que o clique chegue nas folhas de cima. */
+.notebook.open .page.cover {
+    pointer-events: none;
+    z-index: -1 !important;
+    transform: translateZ(-10px) rotateX(180deg) !important;
+    box-shadow: var(--shadow-card-2) !important;
+}
+
+/* Frente e verso do texto */
+.page-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    backface-visibility: hidden;
+    text-align: start;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.page-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-sm);
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-dim) transparent;
+    padding-right: 4px;
+}
+
+.page-text::-webkit-scrollbar {
+    width: 4px;
+}
+
+.page-text::-webkit-scrollbar-thumb {
+    background: var(--color-primary-dim);
+    border-radius: 10px;
+}
+
+.page-content h3,
+.page-content h4 {
+    flex-shrink: 0;
+}
+
+.page-content p {
+    margin-top: 22px;
+    font-size: 1.1rem;
+    line-height: 29px;
+    color: var(--color-text-1);
+}
+
+/* Verso da folha: gira no eixo X (não mais Y), pois agora a dobra é vertical */
+.page-back {
+    transform: rotateX(180deg);
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+/* CTA da capa — "clique para ver"                                                                  */
+/* ---------------------------------------------------------------------------------------------- */
+.cover-cta {
+    align-self: flex-end;
+    font-size: .58rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: background var(--t-fast), transform var(--t-fast);
+}
+
+.notebook.closed:hover .cover-cta {
+    color: var(--color-primary-dim);
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+/* Indicadores de navegação dentro de cada folha — esquerda volta, direita avança                   */
+/* ---------------------------------------------------------------------------------------------- */
+.page-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-shrink: 0;
+    padding-top: var(--space-sm);
+    font-size: .8rem;
+}
+
+.page-indic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-bg-2);
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-text-1);
+    transition: border-color var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+
+.page-indic:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.page-indic-count {
+    font-family: var(--font-display);
+    font-size: .68rem;
+    letter-spacing: .06em;
+    color: var(--color-text-2);
+}
+
+@media (max-width: 980px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .skills-philosophy {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .scene {
+        height: 480px;
+        /* a pilha usa % relativo à .scene — em mobile ela ocupa 100% da largura útil */
+    }
+
+    .notebook {
+        width: min(70vw, 260px);
+        aspect-ratio: 3/4;
+    }
+
+    .notebook.open {
+        left: 50%;
+        top: 48%;
+        transform: translateY(-50%) translateX(-50%) rotateX(-3deg) rotateY(0deg);
+    }
+
+    /* Pilha recalculada para caber dentro da largura da seção em telas estreitas —
+       posicionada relativa à direita, mas com margem seguro para não vazar. */
+    .notebook.closed.stack-1 {
+        left: auto;
+        right: 4%;
+        top: 14%;
+        transform: translateY(0) rotateZ(6deg) rotateX(6deg);
+    }
+
+    .notebook.closed.stack-2 {
+        left: auto;
+        right: 2%;
+        top: 52%;
+        transform: translateY(0) rotateZ(-7deg) rotateX(6deg);
+    }
+
+}
+
+@media (max-width: 600px) {
+    .scene {
+        height: 460px;
+    }
+
+    .notebook {
+        width: min(72vw, 230px);
+    }
+
+    .notebook.closed.stack-1 {
+        right: 0;
+        top: 10%;
+    }
+
+    .notebook.closed.stack-2 {
+        right: -2%;
+        top: 48%;
+    }
+}

@@ -1,0 +1,31 @@
+/* =============================================================================================== */
+/* ========================================== ARES =============================================== */
+/* ==================================== PORTFÓLIO — MAIN CSS ===================================== */
+/* =============================================================================================== */
+
+/* BASE */
+@import url("tokens.css");
+@import url("reset.css");
+@import url("layout.css");
+
+/* PÁGINAS */
+@import url("./pages/page_hero.css");
+@import url("./pages/page_about.css");
+@import url("./pages/page_projects.css");
+@import url("./pages/page_skills.css");
+@import url("./pages/page_services.css");
+@import url("./pages/page_contact.css");
+
+:root {
+    --bg-page-hero: url('../../assets/images/Bg_hero.webp');
+    --bg-page-about: url('../../assets/images/Bg_about.webp');
+    --bg-page-projects: url('../../assets/images/Bg_projects.webp');
+    --bg-page-skills: url('../../assets/images/Bg_skills.webp');
+    --bg-page-services: url('../../assets/images/Bg_services.webp');
+    --bg-page-contact: url('../../assets/images/Bg_contact.webp');
+
+    --img-profile: url('../../assets/images/Ares.webp');
+}
+
+/* ICONES */
+@import url("icons/mainIcons.css");

@@ -65,14 +65,14 @@
 
 /* Container que fornece a perspectiva 3D */
 .scene {
-    height: 60svh;
+    height: 100%;
     perspective: 2000px;
     position: relative;
 }
 
 /* Estilo base do bloco — agora em proporção retrato (mais alto que largo) */
 .notebook {
-    width: clamp(200px, 15svw, 320px);
+    width: clamp(200px, 18svw, 450px);
     aspect-ratio: 9/10;
     position: absolute;
     transform-style: preserve-3d;
@@ -87,7 +87,7 @@
     left: 30%;
     top: 50%;
     transform:
-        translateY(-10%) translateX(0%) rotateX(-3deg) rotateY(2deg);
+        translateY(-50%) translateX(0%) rotateX(-3deg) rotateY(2deg);
 }
 
 .notebook.closed {
@@ -101,16 +101,16 @@
 
 /* Posições da Pilha à direita */
 .notebook.closed.stack-1 {
-    left: 65%;
+    left: 50%;
     top: 25%;
-    transform: translateY(-50%) rotateZ(6deg) rotateX(6deg);
+    transform: translateY(-50%) translateX(50%) rotateZ(6deg) rotateX(6deg);
     z-index: 1;
 }
 
 .notebook.closed.stack-2 {
-    left: 67%;
+    left: 50%;
     top: 65%;
-    transform: translateY(-50%) rotateZ(-7deg) rotateX(15deg);
+    transform: translateY(-50%) translateX(50%) rotateZ(-7deg) rotateX(15deg);
     z-index: 3;
 }
 
@@ -315,77 +315,84 @@
     color: var(--color-text-2);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1450px) {
     .skills-grid {
+        display: grid;
+        grid-template-columns: minmax(250px, 25svw) minmax(400px, 60svw);
+        gap: var(--space-xl);
+    }
+
+    .notebook.open {
+        left: 5%;
+        top: 50%;
+        transform:
+            translateY(-50%) translateX(0%) rotateX(-3deg) rotateY(2deg);
+    }
+
+    .notebook.closed.stack-1 {
+        left: 30%;
+        top: 35%;
+        transform: translateY(-50%) translateX(50%) rotateZ(6deg) rotateX(6deg);
+    }
+
+    .notebook.closed.stack-2 {
+        left: 30%;
+        top: 65%;
+        transform: translateY(-50%) translateX(50%) rotateZ(-7deg) rotateX(15deg);
+    }
+}
+
+@media (max-width: 1200px) {
+    .skills-grid {
+        height: 100%;
         grid-template-columns: 1fr;
         gap: var(--space-lg);
     }
 
-    .skills-philosophy {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
+    .scene {
+        height: 50dvh;
     }
+
 }
 
-@media (max-width: 768px) {
-
-    .scene {
-        height: 480px;
-        /* a pilha usa % relativo à .scene — em mobile ela ocupa 100% da largura útil */
-    }
-
-    .notebook {
-        width: min(70vw, 260px);
-        aspect-ratio: 3/4;
-    }
-
+@media (max-width: 800px) {
     .notebook.open {
-        left: 50%;
-        top: 48%;
-        transform: translateY(-50%) translateX(-50%) rotateX(-3deg) rotateY(0deg);
+        left: 15%;
+        top: 50%;
+        transform:
+            scale(1.2) translateY(-50%) translateX(0%) rotateX(-3deg) rotateY(2deg);
     }
 
-    /* Pilha recalculada para caber dentro da largura da seção em telas estreitas —
-       posicionada relativa à direita, mas com margem seguro para não vazar. */
     .notebook.closed.stack-1 {
-        left: auto;
-        right: 4%;
-        top: 14%;
-        transform: translateY(0) rotateZ(6deg) rotateX(6deg);
+        left: 45%;
+        top: 35%;
+        transform: scale(1.2) translateY(-50%) translateX(50%) rotateZ(6deg) rotateX(6deg);
     }
 
     .notebook.closed.stack-2 {
-        left: auto;
-        right: 2%;
-        top: 52%;
-        transform: translateY(0) rotateZ(-7deg) rotateX(6deg);
+        left: 45%;
+        top: 65%;
+        transform: scale(1.2) translateY(-50%) translateX(50%) rotateZ(-7deg) rotateX(15deg);
     }
-
 }
 
 @media (max-width: 600px) {
-    .scene {
-        height: 460px;
-    }
-
-    .notebook {
-        width: min(72vw, 230px);
+    .notebook.open {
+        left: 5%;
+        top: 50%;
+        transform:
+            scale(1) translateY(-50%) translateX(0%) rotateX(-3deg) rotateY(2deg);
     }
 
     .notebook.closed.stack-1 {
-        right: 0;
-        top: 10%;
+        left: 25%;
+        top: 35%;
+        transform: scale(1) translateY(-50%) translateX(50%) rotateZ(6deg) rotateX(6deg);
     }
 
     .notebook.closed.stack-2 {
-        right: -2%;
-        top: 48%;
+        left: 25%;
+        top: 65%;
+        transform: scale(1) translateY(-50%) translateX(50%) rotateZ(-7deg) rotateX(15deg);
     }
-
-    .notebook.open {
-        left: 50%;
-        top: 48%;
-        transform: translateY(-50%) translateX(-75%) rotateX(-3deg) rotateY(0deg);
-    }
-
 }

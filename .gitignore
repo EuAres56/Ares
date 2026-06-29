@@ -35,3 +35,7 @@ yarn-error.log*
 
 # --- OBSOLETOS ---
 _old/
+
+.dev.vars*
+!.dev.vars.example
+!.env.example

@@ -356,6 +356,14 @@
 }
 
 @media (max-width: 800px) {
+    #section-skills .section-inner {
+        padding-top: 6svh;
+    }
+
+    .services-body {
+        padding: var(--space-xl);
+    }
+
     .notebook.open {
         left: 15%;
         top: 50%;
@@ -377,6 +385,12 @@
 }
 
 @media (max-width: 600px) {
+    #section-skills .section-inner {
+        padding: 1svw;
+        padding-top: 6svh;
+    }
+
+
     .notebook.open {
         left: 5%;
         top: 50%;

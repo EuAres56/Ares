@@ -139,4 +139,20 @@
         grid-template-columns: 1fr;
         gap: var(--space-lg);
     }
+
+    #section-contact .section-inner {
+        padding-top: 6svh;
+    }
+}
+
+@media (max-width: 600px) {
+    #section-contact .section-inner {
+        padding: 1svw;
+        padding-top: 6svh;
+    }
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
 }

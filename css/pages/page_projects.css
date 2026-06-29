@@ -46,8 +46,9 @@
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     overflow: hidden;
     overflow-X: auto;
     gap: var(--space-md);
@@ -58,6 +59,8 @@
     border-radius: var(--radius-md);
     --mx: 50%;
     --my: 50%;
+    width: 25svw;
+    aspect-ratio: 11/9;
 }
 
 .project-card-inner {
@@ -193,6 +196,9 @@
 }
 
 .project-tags {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
     display: flex;
     gap: .4rem;
     flex-wrap: wrap;
@@ -223,6 +229,10 @@
 }
 
 .project-link {
+    position: absolute;
+
+    top: calc(var(--space-sm) / 2);
+    left: calc(100% - 90px - var(--space-sm));
     display: flex;
     align-items: center;
     gap: .4rem;
@@ -244,22 +254,61 @@
 }
 
 /* =============================================================================================== */
-@media (max-width: 980px) {
+@media (max-width: 1400px) {
+    #section-projects .section-inner {
+        gap: var(--space-lg);
+    }
+
     .projects-grid {
-        grid-template-columns: 1fr 1fr;
-        overflow-x: hidden;
-        overflow-y: auto;
         height: 100%;
+        max-height: 55dvh;
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(3, minmax(20svw, 30svw));
+        overflow-x: auto;
+        max-width: 90%;
+        max-height: 80dvh;
+    }
+
+    .project-card {
+        width: 100%;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
     .projects-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(2, minmax(25svw, 45svw));
+        overflow-x: auto;
+        max-width: 90%;
+        max-height: 80dvh;
+    }
+}
+
+@media (max-width: 800px) {
+    #section-projects .section-inner {
+        padding-top: 6svh;
+    }
+}
+
+@media (max-width: 500px) {
+    #section-projects .section-inner {
+        padding: 1svw;
+        padding-top: 6svh;
     }
 
-    .projects-header {
-        flex-direction: column;
-        align-items: flex-start;
+    .projects-grid {
+        justify-content: center;
+        grid-template-columns: minmax(75svw, 100%);
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        max-width: 100%;
+        gap: var(--space-xl);
+    }
+
+    .project-card {
+        /* align-self: center; */
     }
 }

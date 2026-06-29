@@ -201,7 +201,7 @@
 .notebook.open .page.cover {
     pointer-events: none;
     z-index: -1 !important;
-    transform: translateZ(-10px) rotateX(180deg) !important;
+    transform: translateZ(-10px) rotateX(355deg) !important;
     box-shadow: var(--shadow-card-2) !important;
 }
 
@@ -381,4 +381,11 @@
         right: -2%;
         top: 48%;
     }
+
+    .notebook.open {
+        left: 50%;
+        top: 48%;
+        transform: translateY(-50%) translateX(-75%) rotateX(-3deg) rotateY(0deg);
+    }
+
 }

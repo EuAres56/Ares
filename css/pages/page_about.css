@@ -8,8 +8,8 @@
 }
 
 #section-about .section-inner {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 28dvw 45dvw;
     gap: var(--space-lg);
 }
 
@@ -40,11 +40,12 @@
     justify-content: center;
     padding: var(--space-xl) 0;
     perspective: 2000px;
+    overflow: hidden;
 }
 
 .dossier-container {
     position: relative;
-    width: min(500px, 100%);
+    width: min(450px, 100%);
     height: 580px;
     transform-style: preserve-3d;
     transform: rotateX(6deg) rotateY(0deg);
@@ -53,7 +54,7 @@
 /* AS FOLHAS (ESTILO PASTA ARQUIVO NEUTRA) */
 .sheet {
     position: absolute;
-    width: 100%;
+    width: 95%;
     height: 100%;
     background: linear-gradient(145deg, var(--color-bg-1), var(--color-bg-0));
     /* Tom neutro industrial escuro */
@@ -98,12 +99,12 @@
     }
 
     45% {
-        transform: translate3d(125%, -15px, 100px) rotateY(-90deg);
+        transform: translate3d(100%, -15px, 40px) rotateY(-90deg);
         z-index: 4;
     }
 
     55% {
-        transform: translate3d(125%, -15px, -60px) rotateY(-90deg);
+        transform: translate3d(100%, -15px, -60px) rotateY(-90deg);
         z-index: 1;
     }
 
@@ -136,15 +137,15 @@
 
 /* Escalonamento fixo horizontal das abas */
 .sheet[data-index="0"] .tab {
-    left: 15px;
+    left: 5%;
 }
 
 .sheet[data-index="1"] .tab {
-    left: 155px;
+    left: 30%;
 }
 
 .sheet[data-index="2"] .tab {
-    left: 295px;
+    left: 65%;
 }
 
 /* Destaque para a aba da folha ativa */
@@ -214,75 +215,34 @@
     color: var(--color-primary-dim);
 }
 
-/* No seu arquivo de SOBRE, substitua o bloco @media existente por este: */
-@media (max-width: 768px) {
-    #section-about .section-inner {
-        flex-direction: column;
-        justify-content: space-between;
-        /* Transforma linha em coluna */
-        gap: var(--space-md);
-        overflow-x: hidden;
-    }
 
-    .about-header {
-        padding-top: var(--space-md);
-        /* Reduz os 15svh que empurrariam o texto para baixo */
-        max-width: 100%;
-        text-align: left;
-    }
-
-    .dossier-scene {
-        padding: var(--space-md) 0;
-        /* Controla o espaçamento do palco 3D */
+@media (max-width: 1450px) {
+    #section-about .section-inner .about-header {
+        padding-top: 5svh;
     }
 
     .dossier-container {
-        height: 520px;
-        max-height: 45dvh;
-        transform: rotateX(8deg) rotateY(-4deg);
+        transform: rotateX(6deg) rotateY(0deg) scale(.9);
     }
 
-    .sheet[data-index="0"] .tab {
-        left: 5px;
+}
+
+@media (max-width: 1200px) {
+    #section-about .section-inner {
+        display: grid;
+        grid-template-columns: 100dvw;
+        gap: var(--space-lg);
+        justify-items: center;
+    }
+}
+
+@media (max-width: 500px) {
+    #section-about .section-inner {
+        grid-template-columns: 90dvw;
+        gap: var(--space-sm);
     }
 
-    .sheet[data-index="1"] .tab {
-        left: 115px;
-    }
-
-    .sheet[data-index="2"] .tab {
-        left: 225px;
-    }
-
-    .tab {
-        padding: 0 8px;
-        font-size: 0.6rem;
-    }
-
-    .sheet {
-        width: 90%;
-        justify-self: center;
-    }
-
-    @keyframes engineShuffle {
-        0% {
-            transform: translate3d(0, 0, 40px) rotateY(0deg);
-            z-index: 4;
-        }
-
-        45% {
-            transform: translate3d(0%, -105%, 100px) rotateX(-90deg);
-            z-index: 4;
-        }
-
-        55% {
-            transform: translate3d(0%, -105%, -60px) rotateX(-90deg);
-            z-index: 1;
-        }
-
-        100% {
-            transform: translate3d(-20px, -20px, 0px) rotateY(0deg);
-            z-index: 1;
-        }
+    .dossier-container {
+        transform: rotateX(6deg) rotateY(0deg) scale(.75) translateY(-5svh);
     }
 }

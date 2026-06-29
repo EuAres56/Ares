@@ -4,8 +4,8 @@
 
 #viewport {
     position: relative;
-    width: 100dvw;
-    height: 100dvh;
+    width: 100svw;
+    height: 100svh;
     overflow: hidden;
     background: var(--color-bg-0);
 }
@@ -352,8 +352,9 @@ body.nav-collapsed #navbar-toggle .chevron {
 
 .main-logo {
     position: fixed;
-    top: var(--space-md);
+    top: 0;
     right: var(--space-md);
+    transform: translateY(calc(var(--space-md) * -1));
     z-index: 2100;
     width: fit-content;
     height: fit-content;
@@ -366,6 +367,10 @@ body.nav-collapsed #navbar-toggle .chevron {
 .main-logo i {
     --size: 100px;
 }
+
+@media (max-width: 1200px) {}
+
+
 
 @media (max-width: 768px) {
     #navbar {
@@ -421,7 +426,20 @@ body.nav-collapsed #navbar-toggle .chevron {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
+    .main-logo i {
+        --size: 70px !important;
+    }
+
+    #viewport.is-transitioning::after {
+        box-shadow: inset 0 0 15px rgba(255, 0, 60, 0.55),
+            inset 0 0 5px rgba(255, 0, 60, 0.75);
+    }
+
+    .section {
+        padding: var(--space-md);
+    }
+
     .eyebrow {
         font-size: .7rem !important;
     }
@@ -436,7 +454,7 @@ body.nav-collapsed #navbar-toggle .chevron {
 }
 
 /* MONITOR DE ORIENTAÇÃO: TRAVA DE TELA CYBERPUNK */
-@media (orientation: landscape) and (max-width: 932px) {
+@media (orientation: landscape) and (max-width: 1000px) {
     #rotation-lock-overlay {
         display: flex !important;
     }

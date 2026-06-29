@@ -92,3 +92,14 @@
         --space-xl: clamp(1.2rem, 4vw, 2.4rem);
     }
 }
+
+@media (max-width: 500px) {
+    :root {
+        /* ---------- ESPAÇAMENTO ---------- */
+        --space-xs: .1rem;
+        --space-sm: .2rem;
+        --space-md: clamp(.3rem, 1vw, 1.0rem);
+        --space-lg: clamp(.6rem, 2vw, 1.6rem);
+        --space-xl: clamp(.9rem, 3.5vw, 2.0rem);
+    }
+}

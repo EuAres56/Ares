@@ -151,7 +151,7 @@ class SkillsNotebookEngine {
         if (dir === "next" && currentPage < maxPage) {
             const page = pages[currentPage];
             page.style.zIndex = 0;
-            page.style.transform = `translateZ(-6px) rotateX(179.9deg)`;
+            page.style.transform = `translateZ(-6px) rotateX(350deg)`;
             currentPage++;
         } else if (dir === "prev" && currentPage > 0) {
             currentPage--;

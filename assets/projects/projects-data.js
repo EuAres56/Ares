@@ -3,10 +3,10 @@ export const PROJECTS = [
         id: "zero1-ativador",
         title: "Zero 1 — Ativador do Sistema",
         desc: "Interface gráfica leve e portátil para ativação rápida do Windows e Microsoft Office sem dependências externas.",
-        thumb: "./assets/images/Ativador_Windows.png",
+        thumb: "https://github.com/EuAres56/Ativador-Windows/blob/main/interface.png?raw=true",
         tags: ["Python", "Tkinter", "Windows API"],
         status: "live",
-        mdFile: "zero1-ativador.md",
+        mdFile: "https://raw.githubusercontent.com/EuAres56/Ativador-Windows/refs/heads/main/README.md",
         links: [
             {
                 name: "Baixar Executável (.exe)",

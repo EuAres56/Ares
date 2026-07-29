@@ -2,11 +2,27 @@
  * ARES — Markdown Renderer Engine (Proteção contra tags dentro do Mermaid)
  */
 
+/**
+ * Carrega um arquivo Markdown (suporta caminhos locais e URLs remotas do GitHub/R2).
+ * @param {string} mdFile — nome do arquivo ou URL completa
+ * @returns {Promise<string>} — texto bruto do Markdown
+ */
 export async function fetchMarkdown(mdFile) {
-    const url = `./assets/projects/${mdFile}`;
+    // Se mdFile for uma URL remota completa (ex: GitHub ou R2), faz fetch direto nela
+    const isRemoteUrl = mdFile.startsWith('http://') || mdFile.startsWith('https://');
+    const url = isRemoteUrl ? mdFile : `./assets/projects/${mdFile}`;
+
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Não foi possível carregar ${mdFile} (HTTP ${res.status})`);
-    return res.text();
+    if (!res.ok) throw new Error(`Não foi possível carregar o arquivo (${res.status})`);
+
+    const text = await res.text();
+
+    // Trava de segurança: Se a resposta for um documento HTML por engano (ex: erro 404 redirecionado), rejeita
+    if (text.trim().toLowerCase().startsWith('<!doctype html') || text.trim().toLowerCase().startsWith('<html')) {
+        throw new Error("O arquivo Markdown retornado é inválido (resposta HTML de fallback).");
+    }
+
+    return text;
 }
 
 export function parseMarkdown(md) {

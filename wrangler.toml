@@ -1,6 +1,9 @@
 name = "ares"
 pages_build_output_dir = "."
 
+# Data de compatibilidade para o runtime do Pages
+compatibility_date = "2026-07-29"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "ares"

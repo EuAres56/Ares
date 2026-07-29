@@ -314,10 +314,6 @@ function closeModal() {
 function initBackLink() {
     const btn = document.getElementById('proj-back');
     btn?.addEventListener('click', () => {
-        if (history.length > 1) {
-            history.back();
-        } else {
-            window.location.href = './index.html';
-        }
+        window.location.href = './index.html';
     });
 }

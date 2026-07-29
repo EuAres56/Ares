@@ -2,7 +2,7 @@
  * ARES — Projects Page Controller
  * =====================================================================
  * Orquestra a página /projects.html:
- *  - Renderiza os cards a partir do manifest (projects-data.js)
+ *  - Consome o manifesto de projetos do Cloudflare D1 (/api/projects)
  *  - Sincroniza abertura de modais com parâmetros de URL (?p=id)
  *  - Suporta navegação via histórico do navegador (popstate)
  *  - Faz fetch e renderiza o arquivo .md no modal via md-renderer.js
@@ -11,33 +11,79 @@
  */
 
 import { CacheSystem } from './cache-system.js';
-import { PROJECTS, STATUS_LABELS } from '../assets/projects/projects-data.js';
+import { STATUS_LABELS as LOCAL_STATUS_LABELS } from '../assets/projects/projects-data.js';
 import { fetchMarkdown, parseMarkdown } from './engines/md-renderer.js';
+
+// Estado global dinâmico dos projetos
+let PROJECTS = [];
+const STATUS_LABELS = LOCAL_STATUS_LABELS || {
+    live: "Ao vivo",
+    dev: "Em desenvolvimento",
+    concept: "Estudo de caso",
+    archived: "Arquivado"
+};
 
 // =====================================================================
 // BOOTSTRAP
 // =====================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Inicializa cache de assets
     await CacheSystem.init();
     const bg_pg_projects = await CacheSystem.getBlobUrl("./assets/images/Bg_projects.webp");
 
     const rootStyle = document.documentElement.style;
     rootStyle.setProperty('--bg-page-projects', `url('${bg_pg_projects}')`);
 
+    // 2. Busca os dados dos projetos no Cloudflare D1
+    await loadProjectsData();
+
+    // 3. Inicializa motores visuais e de interface
     initParticles();
     renderCards();
     initTilt();
     initModal();
     initBackLink();
 
-    // ROTEADOR DE QUERY PARAMETER:
-    // Monitora as mudanças na URL ao clicar no 'Voltar/Avançar' do navegador
+    // 4. Roteador de Query Parameter (?p=id)
     window.addEventListener('popstate', checkUrlAndSyncModal);
-
-    // Executa a primeira checagem no carregamento inicial da página
     checkUrlAndSyncModal();
 });
+
+// =====================================================================
+// FETCH DE DADOS (CLOUDFLARE D1 / API)
+// =====================================================================
+
+/**
+ * Consulta a Function do Pages que se conecta ao Cloudflare D1
+ */
+async function loadProjectsData() {
+    try {
+        const response = await fetch('/api/projects');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+
+        // Trata os campos serializados garantindo que sejam Arrays e Objetos válidos
+        PROJECTS = data.map(item => ({
+            ...item,
+            tags: typeof item.tags === 'string' ? JSON.parse(item.tags || '[]') : (item.tags || []),
+            links: typeof item.links === 'string' ? JSON.parse(item.links || '[]') : (item.links || [])
+        }));
+
+        console.log(`[ProjectsPage] ${PROJECTS.length} projeto(s) carregado(s) do D1.`);
+    } catch (err) {
+        console.warn('[ProjectsPage] Falha ao consultar D1 (/api/projects). Tentando carregar dados estáticos de fallback:', err);
+
+        // Fallback para o arquivo local caso a API não responda
+        try {
+            const fallbackModule = await import('../assets/projects/projects-data.js');
+            PROJECTS = fallbackModule.PROJECTS || [];
+        } catch (fallbackErr) {
+            console.error('[ProjectsPage] Erro crítico: Não foi possível carregar os projetos estáticos:', fallbackErr);
+        }
+    }
+}
 
 // =====================================================================
 // GERENCIADOR DE ROTAS & URL (QUERY PARAMETERS)
@@ -55,7 +101,6 @@ function checkUrlAndSyncModal() {
         if (project) {
             openProjectModal(project);
         } else {
-            // Se o ID na URL for inválido, limpa a URL e fecha o modal
             closeModal(false);
         }
     } else {
@@ -86,7 +131,7 @@ function clearProjectQueryParam() {
 }
 
 // =====================================================================
-// PARTÍCULAS — Reutiliza o engine existente do portfólio
+// PARTÍCULAS
 // =====================================================================
 
 function initParticles() {
@@ -108,9 +153,14 @@ function renderCards() {
     const grid = document.getElementById('proj-grid');
     if (!grid) return;
 
+    if (PROJECTS.length === 0) {
+        grid.innerHTML = `<p class="proj-empty">Nenhum projeto encontrado no momento.</p>`;
+        return;
+    }
+
     grid.innerHTML = PROJECTS.map((project, i) => buildCardHTML(project, i)).join('');
 
-    // Bind de cliques — Agora atualiza a URL em vez de abrir o modal diretamente
+    // Bind de cliques atualizando o estado da URL
     grid.querySelectorAll('.pcard').forEach(card => {
         const handleSelect = () => {
             const id = card.dataset.projectId;
@@ -131,7 +181,7 @@ function buildCardHTML(project, index) {
     const statusLabel = STATUS_LABELS[project.status] || project.status;
     const statusClass = `pcard__status--${project.status}`;
 
-    const tagsHtml = project.tags
+    const tagsHtml = (project.tags || [])
         .map(t => `<span class="pcard__tag">${t}</span>`)
         .join('');
 
@@ -160,7 +210,7 @@ function buildCardHTML(project, index) {
 }
 
 // =====================================================================
-// EFEITO TILT 3D — mesmo padrão do portfólio principal
+// EFEITO TILT 3D
 // =====================================================================
 
 function initTilt() {
@@ -269,9 +319,11 @@ async function openProjectModal(project) {
             }).join('');
 
             actionsEl.hidden = false;
+            actionsEl.style.display = 'flex';
         } else {
             actionsEl.innerHTML = '';
             actionsEl.hidden = true;
+            actionsEl.style.display = 'none';
         }
     }
 
@@ -295,11 +347,13 @@ async function openProjectModal(project) {
             contentEl.innerHTML = html;
         }
 
+        // Garante a remoção e ocultação completa do loader
         if (loaderEl) {
             loaderEl.style.display = 'none';
             loaderEl.hidden = true;
         }
 
+        // Renderização dos diagramas Mermaid
         if (window.mermaid) {
             window.mermaid.initialize({
                 startOnLoad: false,

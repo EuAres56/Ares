@@ -8,7 +8,7 @@ O projeto foi projetado especificamente para técnicos de manutenção e desenvo
 
 ## 📸 Demonstração
 
-![Demonstração da Interface](https://github.com/EuAres56/Ativador-Windows/blob/main/interface.png?raw=true)
+![Demonstração da Interface](https://pub-5e739fb3b3ff4101b4d1a5e1c1ca85ff.r2.dev/images/Ativador_Windows.png)
 
 ---
 
@@ -26,7 +26,7 @@ O projeto foi projetado especificamente para técnicos de manutenção e desenvo
 
 ## 🚀 Como Usar (Para Usuários)
 
-1. Acesse a aba **[Releases](../../releases)** deste repositório.
+1. Acesse a aba **[Releases](https://github.com/EuAres56/Ativador-Windows/releases)** deste repositório.
 2. Baixe o executável `Zero1-Ativador.exe`.
 3. Abra o arquivo com **dois cliques** (o aplicativo solicitará a permissão de Administrador automaticamente).
 4. Clique em **Ativar Agora** e aguarde a finalização do processo.

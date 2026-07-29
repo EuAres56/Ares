@@ -1,0 +1,7 @@
+name = "ares"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ares"
+database_id = "8d7771a9-8760-4418-983d-a9f6eacc5a77"

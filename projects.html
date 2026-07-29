@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description"
+        content="Projetos de Elizeu Sanches (Ares) — sistemas, automações e interfaces construídos com controle total sobre performance e experiência.">
+    <title>Projetos — ARES | Elizeu Sanches</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Ícones (reutilizados do portfólio) -->
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- CSS desta página -->
+    <link rel="stylesheet" href="./css/pages/page_projects_standalone.css">
+
+    <!-- Variáveis de fundo (replicadas aqui para não depender de main.css) -->
+    <style>
+        :root {
+            --bg-page-projects: url('./assets/images/Bg_projects.webp');
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body class="projects-page">
+
+    <!-- ============================================================
+         FUNDO — mesma identidade visual do portfólio
+    ============================================================ -->
+    <div class="projects-page__bg" aria-hidden="true"></div>
+
+    <!-- Canvas do particles engine (reutilizado do portfólio) -->
+    <div id="projects-page-bg" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+    <header class="proj-header">
+        <button id="proj-back" type="button" aria-label="Voltar ao portfólio">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+            </svg>
+            Portfólio
+        </button>
+
+        <div class="proj-header__meta">
+            <p class="proj-header__eyebrow">Trabalho recente</p>
+            <h1 class="proj-header__title">Projetos selecionados</h1>
+        </div>
+
+        <div class="proj-header__brand">
+            <strong>ARES</strong>
+            <span>Dev Full Stack</span>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         GRID DE CARDS
+    ============================================================ -->
+    <main class="proj-main" id="proj-main">
+        <div id="proj-grid" role="list" aria-label="Lista de projetos">
+            <!-- Cards injetados via JS (projects-page.js) -->
+        </div>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="proj-footer">
+        <p>ARES &mdash; Elizeu Sanches &nbsp;<span>·</span>&nbsp; <span>Dev Full Stack</span></p>
+    </footer>
+
+    <!-- ============================================================
+         MODAL — renderiza o .md do projeto selecionado
+    ============================================================ -->
+    <div id="proj-modal-overlay" class="proj-modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="proj-modal-title">
+        <div class="proj-modal">
+            <!-- Cabeçalho -->
+            <div class="proj-modal__head">
+                <h2 id="proj-modal-title" class="proj-modal__title">Carregando...</h2>
+                <button id="proj-modal-close" class="proj-modal__close" aria-label="Fechar">✕</button>
+            </div>
+
+            <!-- Faixa de Ações / Download (exibida apenas se houver links) -->
+            <div id="proj-modal-actions" class="proj-modal__actions" hidden></div>
+
+            <!-- Corpo com conteúdo Markdown renderizado -->
+            <div class="proj-modal__body" id="proj-modal-body">
+                <div id="proj-modal-loader" class="proj-modal__loader" hidden>
+                    Carregando documentação
+                </div>
+                <p id="proj-modal-error" class="proj-modal__error" hidden></p>
+                <div id="proj-modal-content"></div>
+            </div>
+
+            <!-- Corpo com conteúdo Markdown renderizado -->
+            <div class="proj-modal__body" id="proj-modal-body">
+                <!-- Loader (visível enquanto faz fetch do .md) -->
+                <div id="proj-modal-loader" class="proj-modal__loader" hidden>
+                    Carregando documentação
+                </div>
+
+                <!-- Mensagem de erro -->
+                <p id="proj-modal-error" class="proj-modal__error" hidden></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCRIPTS
+    ============================================================ -->
+
+    <!--
+        Partículas: carrega o engine do portfólio como módulo separado.
+        O particles-engine.js expõe window.ParticleEngine que o projects-page.js usa.
+    -->
+    <script type="module" src="./js/engines/particles-engine.js"></script>
+
+    <!-- Controlador da página (renderiza cards + modal + fetch MD) -->
+    <script type="module" src="./js/projects-page.js"></script>
+
+</body>
+
+</html>

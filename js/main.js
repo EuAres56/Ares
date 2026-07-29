@@ -50,23 +50,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 /**
  * Converte imagens do cache em Blobs e as disponibiliza nativamente para os arquivos CSS
  */
+/**
+ * Converte imagens do cache em Blobs e as disponibiliza nativamente para os arquivos CSS
+ */
 async function injectCachedStyles() {
-    const bg_pg_hero = await CacheSystem.getBlobUrl("./assets/images/Bg_hero.webp");
-    const bg_pg_about = await CacheSystem.getBlobUrl("./assets/images/Bg_about.webp");
-    const bg_pg_projects = await CacheSystem.getBlobUrl("./assets/images/Bg_projects.webp");
-    const bg_pg_skills = await CacheSystem.getBlobUrl("./assets/images/Bg_skills.webp");
-    const bg_pg_services = await CacheSystem.getBlobUrl("./assets/images/Bg_services.webp");
-    const bg_pg_contact = await CacheSystem.getBlobUrl("./assets/images/Bg_contact.webp");
-    const img_profile = await CacheSystem.getBlobUrl("./assets/images/Ares.webp");
+    try {
+        const bg_pg_hero = await CacheSystem.getBlobUrl("./assets/images/Bg_hero.webp");
+        const bg_pg_about = await CacheSystem.getBlobUrl("./assets/images/Bg_about.webp");
+        const bg_pg_projects = await CacheSystem.getBlobUrl("./assets/images/Bg_projects.webp");
+        const bg_pg_skills = await CacheSystem.getBlobUrl("./assets/images/Bg_skills.webp");
+        const bg_pg_services = await CacheSystem.getBlobUrl("./assets/images/Bg_services.webp");
+        const bg_pg_contact = await CacheSystem.getBlobUrl("./assets/images/Bg_contact.webp");
+        const img_profile = await CacheSystem.getBlobUrl("./assets/images/Ares.webp");
 
-    // Injeção no :root CSS
-    document.documentElement.style.setProperty('--bg-page-hero', `url(${bg_pg_hero})`);
-    document.documentElement.style.setProperty('--bg-page-about', `url(${bg_pg_about})`);
-    document.documentElement.style.setProperty('--bg-page-projects', `url(${bg_pg_projects})`);
-    document.documentElement.style.setProperty('--bg-page-skills', `url(${bg_pg_skills})`);
-    document.documentElement.style.setProperty('--bg-page-services', `url(${bg_pg_services})`);
-    document.documentElement.style.setProperty('--bg-page-contact', `url(${bg_pg_contact})`);
-    document.documentElement.style.setProperty('--img-profile', `url(${img_profile})`);
+        // Injeção no :root CSS com aspas explicitas '...' em volta das URLs/Blobs
+        const rootStyle = document.documentElement.style;
+        rootStyle.setProperty('--bg-page-hero', `url('${bg_pg_hero}')`);
+        rootStyle.setProperty('--bg-page-about', `url('${bg_pg_about}')`);
+        rootStyle.setProperty('--bg-page-projects', `url('${bg_pg_projects}')`);
+        rootStyle.setProperty('--bg-page-skills', `url('${bg_pg_skills}')`);
+        rootStyle.setProperty('--bg-page-services', `url('${bg_pg_services}')`);
+        rootStyle.setProperty('--bg-page-contact', `url('${bg_pg_contact}')`);
+        rootStyle.setProperty('--img-profile', `url('${img_profile}')`);
 
-    console.log("[Main] Variáveis de estilização injetadas via cache mapeado.");
+        console.log("[Main] Variáveis de estilização injetadas via cache mapeado.");
+    } catch (err) {
+        console.error("[Main] Erro ao injetar estilos de fundo:", err);
+    }
 }

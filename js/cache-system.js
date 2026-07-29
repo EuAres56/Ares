@@ -12,7 +12,8 @@ export class CacheSystem {
             { id: "bg_skills", url: "./assets/images/Bg_skills.webp" },
             { id: "bg_services", url: "./assets/images/Bg_services.webp" },
             { id: "bg_contact", url: "./assets/images/Bg_contact.webp" },
-            { id: "ares", url: "./assets/images/Ares.webp" }
+            { id: "ares", url: "./assets/images/Ares.webp" },
+            { id: "Ativador_Windows", url: "./assets/images/Ativador_Windows.png" },
         ]
     };
 
@@ -76,16 +77,14 @@ export class CacheSystem {
      * Retorna uma URL convertida em Blob local ou a string original caso a API não seja suportada
      */
     static async getBlobUrl(url) {
-        // Fallback imediato: Se não suportar a API de cache, retorna o link estático direto da rede
         if (!this.isSupported) {
-            return url;
+            return new URL(url, window.location.href).href;
         }
 
         try {
             const cache = await caches.open(this.CONFIG.CACHE_NAME);
             let response = await cache.match(url);
 
-            // Fallback de segurança: Se o arquivo não estiver em cache, faz o fetch e o salva
             if (!response) {
                 console.warn(`[CacheSystem] Cache miss para ${url}. Buscando via rede.`);
                 response = await fetch(url);
@@ -97,7 +96,8 @@ export class CacheSystem {
             return URL.createObjectURL(blob);
         } catch (error) {
             console.error(`[CacheSystem] Falha ao instanciar ObjectURL para: ${url}`, error);
-            return url; // Retorna a string original caso haja falha crítica na conversão do Blob
+            // Retorna a URL absoluta completa em vez da string relativa './assets/...'
+            return new URL(url, window.location.origin).href;
         }
     }
 }

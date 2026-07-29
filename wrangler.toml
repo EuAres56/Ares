@@ -1,9 +1,10 @@
-name = "ares"
+name = "ares-portfolio"
 pages_build_output_dir = "."
 
 # Data de compatibilidade para o runtime do Pages
 compatibility_date = "2026-07-29"
 
+# Conexão com o seu banco D1
 [[d1_databases]]
 binding = "DB"
 database_name = "ares"

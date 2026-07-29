@@ -1,4 +1,4 @@
-name = "ares-portfolio"
+name = "ares"
 pages_build_output_dir = "."
 
 # Data de compatibilidade para o runtime do Pages

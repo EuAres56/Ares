@@ -5,7 +5,7 @@ export async function onRequestGet(context) {
             "SELECT * FROM projects ORDER BY created_at DESC"
         ).all();
 
-        // Converte as colunas de JSON String (tags e links) de volta para Objetos/Arrays
+        // Formata os campos serializados
         const formattedProjects = results.map(p => ({
             ...p,
             tags: JSON.parse(p.tags || '[]'),
@@ -15,11 +15,13 @@ export async function onRequestGet(context) {
         return new Response(JSON.stringify(formattedProjects), {
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "max-age=60, s-maxage=300" // Cache leve para performance extrema
+                "Cache-Control": "max-age=60, s-maxage=300"
             }
         });
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" }
+        });
     }
 }

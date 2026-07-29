@@ -3,21 +3,14 @@
  * =====================================================================
  * Orquestra a página /projects.html:
  *  - Renderiza os cards a partir do manifest (projects-data.js)
- *  - Abre/fecha o modal ao clicar em um card
+ *  - Sincroniza abertura de modais com parâmetros de URL (?p=id)
+ *  - Suporta navegação via histórico do navegador (popstate)
  *  - Faz fetch e renderiza o arquivo .md no modal via md-renderer.js
  *  - Partículas de fundo via window.ParticleEngine (particles-engine.js)
- *  - Efeito tilt 3D nos cards (mesmo padrão do portfólio principal)
- *
- * NOTA DE IMPORT PATHS:
- *   Este arquivo vive em /js/projects-page.js.
- *   O HTML serve na raiz (/projects.html), mas o <script> aponta para
- *   ./js/projects-page.js, logo o CWD para imports é /js/.
+ *  - Efeito tilt 3D nos cards
  */
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  Importações (caminhos relativos a /js/projects-page.js)
-// ─────────────────────────────────────────────────────────────────────────────// ---------------- CORE ----------------
-import { CacheSystem } from './cache-system.js'; // CORREÇÃO: Adicionada a barra './' necessária para caminhos relativos
+import { CacheSystem } from './cache-system.js';
 import { PROJECTS, STATUS_LABELS } from '../assets/projects/projects-data.js';
 import { fetchMarkdown, parseMarkdown } from './engines/md-renderer.js';
 
@@ -28,7 +21,7 @@ import { fetchMarkdown, parseMarkdown } from './engines/md-renderer.js';
 document.addEventListener('DOMContentLoaded', async () => {
     await CacheSystem.init();
     const bg_pg_projects = await CacheSystem.getBlobUrl("./assets/images/Bg_projects.webp");
-    // Injeção no :root CSS com aspas explicitas '...' em volta das URLs/Blobs
+
     const rootStyle = document.documentElement.style;
     rootStyle.setProperty('--bg-page-projects', `url('${bg_pg_projects}')`);
 
@@ -37,16 +30,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     initTilt();
     initModal();
     initBackLink();
+
+    // ROTEADOR DE QUERY PARAMETER:
+    // Monitora as mudanças na URL ao clicar no 'Voltar/Avançar' do navegador
+    window.addEventListener('popstate', checkUrlAndSyncModal);
+
+    // Executa a primeira checagem no carregamento inicial da página
+    checkUrlAndSyncModal();
 });
+
+// =====================================================================
+// GERENCIADOR DE ROTAS & URL (QUERY PARAMETERS)
+// =====================================================================
+
+/**
+ * Lê a URL atual e abre ou fecha o modal de acordo com o parâmetro 'p' ou 'id'
+ */
+function checkUrlAndSyncModal() {
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get('p') || params.get('id');
+
+    if (projectId) {
+        const project = PROJECTS.find(item => item.id === projectId);
+        if (project) {
+            openProjectModal(project);
+        } else {
+            // Se o ID na URL for inválido, limpa a URL e fecha o modal
+            closeModal(false);
+        }
+    } else {
+        closeModal(false);
+    }
+}
+
+/**
+ * Adiciona o parâmetro do projeto à URL e atualiza o histórico do navegador
+ */
+function setProjectQueryParam(projectId) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('p', projectId);
+    window.history.pushState({ projectId }, '', url.toString());
+    checkUrlAndSyncModal();
+}
+
+/**
+ * Remove o parâmetro do projeto da URL
+ */
+function clearProjectQueryParam() {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('p') || url.searchParams.has('id')) {
+        url.searchParams.delete('p');
+        url.searchParams.delete('id');
+        window.history.pushState({}, '', url.pathname);
+    }
+}
 
 // =====================================================================
 // PARTÍCULAS — Reutiliza o engine existente do portfólio
 // =====================================================================
 
 function initParticles() {
-    // particles-engine.js é carregado via <script type="module"> no HTML
-    // e expõe window.ParticleEngine antes de DOMContentLoaded via módulo
-    // Pequeno timeout para garantir que o módulo já registrou o singleton
     const tryStart = (attempts = 0) => {
         if (window.ParticleEngine) {
             window.ParticleEngine.start('projects-page-bg');
@@ -67,17 +110,19 @@ function renderCards() {
 
     grid.innerHTML = PROJECTS.map((project, i) => buildCardHTML(project, i)).join('');
 
-    // Bind de cliques e teclado (acessibilidade)
+    // Bind de cliques — Agora atualiza a URL em vez de abrir o modal diretamente
     grid.querySelectorAll('.pcard').forEach(card => {
-        const open = () => {
+        const handleSelect = () => {
             const id = card.dataset.projectId;
-            const project = PROJECTS.find(p => p.id === id);
-            if (project) openProjectModal(project);
+            setProjectQueryParam(id);
         };
 
-        card.addEventListener('click', open);
+        card.addEventListener('click', handleSelect);
         card.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSelect();
+            }
         });
     });
 }
@@ -122,7 +167,6 @@ function initTilt() {
     const grid = document.getElementById('proj-grid');
     if (!grid) return;
 
-    // Observa novos cards injetados
     const bindTilt = () => {
         grid.querySelectorAll('.pcard').forEach(card => {
             if (card._tiltBound) return;
@@ -167,20 +211,20 @@ function initTilt() {
 // MODAL
 // =====================================================================
 
-let currentController = null; // AbortController para cancelar fetch anterior
+let currentController = null;
 
 function initModal() {
     const overlay = document.getElementById('proj-modal-overlay');
     const closeBtn = document.getElementById('proj-modal-close');
 
-    closeBtn?.addEventListener('click', closeModal);
+    closeBtn?.addEventListener('click', () => closeModal(true));
 
     overlay?.addEventListener('click', e => {
-        if (e.target === overlay) closeModal();
+        if (e.target === overlay) closeModal(true);
     });
 
     window.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeModal();
+        if (e.key === 'Escape') closeModal(true);
     });
 }
 
@@ -203,7 +247,7 @@ async function openProjectModal(project) {
 
     titleEl.textContent = project.title;
 
-    // Renderiza a faixa de links se o array existir e não estiver vazio
+    // Renderiza a faixa de links se existirem
     if (actionsEl) {
         if (project.links && Array.isArray(project.links) && project.links.length > 0) {
             actionsEl.innerHTML = project.links.map(item => {
@@ -244,22 +288,18 @@ async function openProjectModal(project) {
         const md = await fetchMarkdown(project.mdFile);
         const html = parseMarkdown(md);
 
-        // Busca as referências recém-criadas no DOM
         const loaderEl = document.getElementById('proj-modal-loader');
         const contentEl = document.getElementById('proj-modal-content');
 
-        // Insere o HTML renderizado do Markdown
         if (contentEl) {
             contentEl.innerHTML = html;
         }
 
-        // Esconde o loader de forma garantida (alterando display e estilo)
         if (loaderEl) {
             loaderEl.style.display = 'none';
             loaderEl.hidden = true;
         }
 
-        // Executa a renderização do diagrama Mermaid
         if (window.mermaid) {
             window.mermaid.initialize({
                 startOnLoad: false,
@@ -276,7 +316,6 @@ async function openProjectModal(project) {
             }
         }
 
-        // Reseta o scroll para o topo
         bodyEl.scrollTop = 0;
 
     } catch (err) {
@@ -299,12 +338,17 @@ async function openProjectModal(project) {
     }
 }
 
-function closeModal() {
+function closeModal(updateUrl = true) {
     const overlay = document.getElementById('proj-modal-overlay');
     overlay?.classList.remove('is-open');
     document.body.classList.remove('modal-open');
+
     currentController?.abort();
     currentController = null;
+
+    if (updateUrl) {
+        clearProjectQueryParam();
+    }
 }
 
 // =====================================================================

@@ -8,11 +8,8 @@
  * @returns {Promise<string>} — texto bruto do Markdown
  */
 export async function fetchMarkdown(mdFile) {
-    // Se mdFile for uma URL remota completa (ex: GitHub ou R2), faz fetch direto nela
-    const isRemoteUrl = mdFile.startsWith('http://') || mdFile.startsWith('https://');
-    const url = isRemoteUrl ? mdFile : `./assets/projects/${mdFile}`;
 
-    const res = await fetch(url);
+    const res = await fetch(mdFile);
     if (!res.ok) throw new Error(`Não foi possível carregar o arquivo (${res.status})`);
 
     const text = await res.text();

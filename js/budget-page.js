@@ -10,8 +10,8 @@ import { fetchMarkdown, parseMarkdown } from './engines/md-renderer.js';
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Inicializa cache de assets e injeta o background de projetos
   await CacheSystem.init();
-  const bg_pg_projects = await CacheSystem.getBlobUrl("./assets/images/Bg_projects.webp");
-  document.documentElement.style.setProperty('--bg-page-projects', `url('${bg_pg_projects}')`);
+  const bg_pg_services = await CacheSystem.getBlobUrl("./assets/images/Bg_services.webp");
+  document.documentElement.style.setProperty('--bg-page-services', `url('${bg_pg_services}')`);
 
   // 2. Extrai o parâmetro ?o= da URL
   const params = new URLSearchParams(window.location.search);

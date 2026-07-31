@@ -3,7 +3,7 @@
 // =====================================================================
 // ---------------- CORE ----------------
 import { CacheSystem } from './cache-system.js'; // CORREÇÃO: Adicionada a barra './' necessária para caminhos relativos
-
+import './api/send-mail.js'; // Envia e-mail do formulário de contato
 
 // -------- UI & UX UTILITIES --------
 import './ui/scene-engine.js';       // Inicializa o CKEngine e gerencia as telas

@@ -87,7 +87,7 @@ function renderBudgetUI(budget, parsedHtml) {
     <header class="budget-header">
       <div class="budget-meta">
         <span class="budget-badge budget-badge--${budget.status}">${budget.status.toUpperCase()}</span>
-        <span class="budget-date">Emissão/Validade: ${budget.date}</span>
+        <span class="budget-date">Emissão: ${budget.date}</span>
       </div>
       <h1 class="budget-title">${budget.title}</h1>
       <p class="budget-client">Apresentado para: <strong>${budget.client_name}</strong></p>

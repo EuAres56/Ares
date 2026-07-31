@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial | ARES</title>
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <style>
+        body {
+            background: var(--bg-page-projects) no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .budget-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(15, 15, 18, 0.9);
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .budget-price-box {
+            background: #18181c;
+            border-left: 4px solid #ff0055;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .budget-price-box h2 {
+            margin: 0;
+            color: #ff0055;
+        }
+
+        .budget-action-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #ff0055;
+            color: #fff;
+            padding: 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 24px;
+        }
+    </style>
+
+    <!-- Bibliotecas opcionais (marked e mermaid) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+
+    <main class="budget-wrapper" id="budget-container">
+        <div id="budget-loader">Carregando proposta...</div>
+        <div id="budget-error" class="error-msg" hidden></div>
+        <div id="budget-content"></div>
+    </main>
+
+    <script type="module" src="./js/budget-page.js"></script>
+</body>
+
+</html>

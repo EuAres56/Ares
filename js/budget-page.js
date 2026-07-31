@@ -7,7 +7,22 @@
 import { CacheSystem } from './cache-system.js';
 import { fetchMarkdown, parseMarkdown } from './engines/md-renderer.js';
 
+
+// =====================================================================
+// BACK LINK
+// =====================================================================
+
+function initBackLink() {
+  const btn = document.getElementById('proj-back');
+  btn?.addEventListener('click', () => {
+    window.location.href = './index.html';
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded', async () => {
+  initBackLink();
+
   // 1. Inicializa cache de assets e injeta o background de projetos
   await CacheSystem.init();
   const bg_pg_services = await CacheSystem.getBlobUrl("./assets/images/Bg_services.webp");
@@ -81,7 +96,7 @@ function renderBudgetUI(budget, parsedHtml) {
   const waMessage = encodeURIComponent(
     `Olá! Gostaria de conversar sobre a proposta #${budget.id} (${budget.title}).`
   );
-  const waLink = `https://api.whatsapp.com/send/?phone=558796504291&text=${waMessage}`;
+  const waLink = `https://api.whatsapp.com/send/?phone=557491035811&text=${waMessage}`;
 
   contentArea.innerHTML = `
     <header class="budget-header">

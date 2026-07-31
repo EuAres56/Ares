@@ -492,15 +492,15 @@
                     <form class="contact-form" id="contact-form">
                         <div class="form-row">
                             <label for="form-name" data-i18n="contact.form_name">Nome</label>
-                            <input id="form-name" type="text" required>
+                            <input id="form-name" type="text" name="name" required>
                         </div>
                         <div class="form-row">
                             <label for="form-email" data-i18n="contact.form_email">E-mail</label>
-                            <input id="form-email" type="email" required>
+                            <input id="form-email" type="email" name="email" required>
                         </div>
                         <div class="form-row">
                             <label for="form-message" data-i18n="contact.form_message">Mensagem</label>
-                            <textarea id="form-message" rows="4"
+                            <textarea id="form-message" rows="4" name="message"
                                 data-i18n-attr="placeholder:contact.form_message_placeholder" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" data-i18n="contact.form_submit">Enviar

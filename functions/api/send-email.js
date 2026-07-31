@@ -2,9 +2,9 @@ export async function onRequestPost(context) {
     const { request, env } = context;
 
     try {
-        const { nome, email, mensagem } = await request.json();
+        const { name, email, message } = await request.json();
 
-        const primeiroNome = nome ? nome.trim().split(' ')[0] : 'Cliente';
+        const firstName = name ? name.trim().split(' ')[0] : 'Cliente';
 
         // Disparo direto via REST API do Resend
         const resendResponse = await fetch('https://api.resend.com/emails', {
@@ -17,7 +17,7 @@ export async function onRequestPost(context) {
                 from: 'Formulário Portfolio <suporte@zero1-tech.com>',
                 to: ['contato-servicos@zero1-tech.com'],
                 reply_to: email, // Nota: na API REST usa-se reply_to com underline
-                subject: `📥 Novo Lead: ${nome} quer conversar sobre um projeto`,
+                subject: `📥 Novo Lead: ${name} quer conversar sobre um projeto`,
                 html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #0f0f12; color: #ffffff; border-radius: 8px; padding: 24px; border: 1px solid #222;">
             <h2 style="color: #ff0055; margin-top: 0; font-size: 20px;">🚀 Novo Contato do Site</h2>
@@ -27,7 +27,7 @@ export async function onRequestPost(context) {
 
             <div style="background-color: #18181c; padding: 16px; border-radius: 6px; margin-bottom: 16px;">
               <p style="margin: 0 0 8px 0; font-size: 14px;">
-                <strong style="color: #888;">Cliente:</strong> <span style="color: #fff;">${nome}</span>
+                <strong style="color: #888;">Cliente:</strong> <span style="color: #fff;">${name}</span>
               </p>
               <p style="margin: 0; font-size: 14px;">
                 <strong style="color: #888;">E-mail:</strong> <a href="mailto:${email}" style="color: #ff0055; text-decoration: none;">${email}</a>
@@ -38,13 +38,13 @@ export async function onRequestPost(context) {
               <p style="margin: 0 0 6px 0; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px;">
                 Mensagem / Projeto:
               </p>
-              <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #ddd; white-space: pre-wrap;">${mensagem}</p>
+              <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #ddd; white-space: pre-wrap;">${message}</p>
             </div>
 
             <hr style="border: none; border-top: 1px solid #222; margin: 24px 0;" />
 
             <p style="font-size: 12px; color: #666; text-align: center; margin: 0;">
-              Dica: Basta clicar em <strong>"Responder"</strong> neste e-mail para falar diretamente com <strong>${primeiroNome}</strong>.
+              Dica: Basta clicar em <strong>"Responder"</strong> neste e-mail para falar diretamente com <strong>${firstName}</strong>.
             </p>
           </div>
         `,

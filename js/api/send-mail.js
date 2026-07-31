@@ -11,9 +11,9 @@ contactForm.addEventListener('submit', async (e) => {
     btnSubmit.textContent = 'Enviando...';
 
     const payload = {
-        nome: contactForm.querySelector('input[placeholder="NOME"]').value,
-        email: contactForm.querySelector('input[placeholder="E-MAIL"]').value,
-        mensagem: contactForm.querySelector('textarea').value,
+        name: contactForm.querySelector('input[name="name"]').value,
+        email: contactForm.querySelector('input[name="email"]').value,
+        message: contactForm.querySelector('textarea[name="message"]').value,
     };
 
     try {

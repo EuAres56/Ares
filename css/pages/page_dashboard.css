@@ -140,6 +140,8 @@
 .dash-tab.is-active {
     color: #fff;
     border-color: #ff0055;
+    overflow-y: auto;
+    max-height: calc(100dvh - 200px);
 }
 
 .dash-panel {

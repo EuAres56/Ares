@@ -11,6 +11,12 @@
     font-family: inherit;
 }
 
+/* Garante que o atributo [hidden] sempre vença, mesmo se alguma classe
+   (nossa ou do main.css, ex: .btn) declarar display explícito. */
+.dash-page [hidden] {
+    display: none !important;
+}
+
 /* -------------------- LOGIN -------------------- */
 .dash-login-overlay {
     position: fixed;
@@ -20,6 +26,12 @@
     justify-content: center;
     background: radial-gradient(circle at 50% 20%, #1a1a20, #0a0a0d 70%);
     z-index: 999;
+}
+
+/* Sem isso, o atributo [hidden] perde pro display:flex acima e o overlay
+   nunca some, mesmo com o login validado (é por isso que "nada acontecia"). */
+.dash-login-overlay[hidden] {
+    display: none;
 }
 
 .dash-login-box {

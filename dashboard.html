@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dashboard | ARES</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/pages/page_dashboard.css">
+</head>
+
+<body class="dash-page">
+
+    <!-- ============================================================
+         LOGIN — trava simples por chave compartilhada (env.DASHBOARD_KEY)
+    ============================================================ -->
+    <div id="dash-login-overlay" class="dash-login-overlay">
+        <form id="dash-login-form" class="dash-login-box">
+            <div class="main-logo"><i class="logo-zero1"></i></div>
+            <h1>Dashboard ARES</h1>
+            <p>Informe a chave de acesso para gerenciar projetos e orçamentos.</p>
+            <input type="password" id="dash-key-input" placeholder="Chave de acesso" autocomplete="off" required>
+            <p id="dash-login-error" class="dash-error" hidden></p>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+    </div>
+
+    <!-- ============================================================
+         APP — só é exibido depois do login
+    ============================================================ -->
+    <div id="dash-app" class="dash-app" hidden>
+
+        <header class="dash-header">
+            <button id="proj-back" type="button" aria-label="Voltar ao portfólio">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+                Portfólio
+            </button>
+            <div class="dash-header__meta">
+                <p class="eyebrow">Painel administrativo</p>
+                <h1>Dashboard</h1>
+            </div>
+            <button id="dash-logout" type="button" class="dash-logout-btn">Sair</button>
+        </header>
+
+        <nav class="dash-tabs">
+            <button class="dash-tab is-active" data-tab="projects">Projetos</button>
+            <button class="dash-tab" data-tab="budgets">Orçamentos</button>
+        </nav>
+
+        <!-- ======================== ABA PROJETOS ======================== -->
+        <section class="dash-panel is-active" id="panel-projects">
+
+            <div class="dash-grid">
+                <!-- Formulário -->
+                <div class="dash-card">
+                    <h2 id="project-form-title">Novo projeto</h2>
+                    <form id="project-form" class="dash-form">
+                        <input type="hidden" id="p-original-id">
+
+                        <label>Título
+                            <input type="text" id="p-title" required>
+                        </label>
+
+                        <label>ID / slug (usado na URL e no bucket)
+                            <input type="text" id="p-id" pattern="[a-z0-9\-]+"
+                                title="apenas letras minúsculas, números e hífen" required>
+                        </label>
+
+                        <label>Descrição curta
+                            <textarea id="p-desc" rows="2"></textarea>
+                        </label>
+
+                        <label>Thumbnail (URL da imagem)
+                            <input type="text" id="p-thumb" placeholder="./assets/images/...">
+                        </label>
+
+                        <div class="dash-form-row">
+                            <label>Ícone (classe do font-icon)
+                                <input type="text" id="p-icon" placeholder="nodejs, html5, python...">
+                            </label>
+                            <label>Status
+                                <select id="p-status">
+                                    <option value="live">Ao vivo</option>
+                                    <option value="dev" selected>Em desenvolvimento</option>
+                                    <option value="concept">Estudo de caso</option>
+                                    <option value="archived">Arquivado</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <label>Tags (separadas por vírgula)
+                            <input type="text" id="p-tags" placeholder="Node.js, PostgreSQL">
+                        </label>
+
+                        <div class="dash-links" id="p-links-wrap">
+                            <div class="dash-links__head">
+                                <span>Links do projeto</span>
+                                <button type="button" id="p-add-link" class="dash-mini-btn">+ adicionar link</button>
+                            </div>
+                            <div id="p-links-rows"></div>
+                        </div>
+
+                        <label>Documentação (.md)
+                            <input type="file" id="p-md-file" accept=".md">
+                            <small id="p-md-current" class="dash-hint"></small>
+                        </label>
+
+                        <label class="dash-checkbox">
+                            <input type="checkbox" id="p-featured">
+                            Exibir na página inicial (destaque — máx. 3)
+                        </label>
+
+                        <div class="dash-form-actions">
+                            <button type="submit" class="btn btn-primary">Salvar projeto</button>
+                            <button type="button" id="p-cancel-edit" class="btn btn-ghost" hidden>Cancelar
+                                edição</button>
+                        </div>
+                        <p id="p-form-msg" class="dash-msg" hidden></p>
+                    </form>
+                </div>
+
+                <!-- Lista -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2>Projetos cadastrados</h2>
+                        <span id="p-featured-counter" class="dash-badge">0/3 em destaque</span>
+                    </div>
+                    <div id="projects-list" class="dash-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== ABA ORÇAMENTOS ======================== -->
+        <section class="dash-panel" id="panel-budgets">
+
+            <div class="dash-grid">
+                <!-- Formulário -->
+                <div class="dash-card">
+                    <h2 id="budget-form-title">Novo orçamento</h2>
+                    <form id="budget-form" class="dash-form">
+                        <input type="hidden" id="b-original-id">
+
+                        <label>Título da proposta
+                            <input type="text" id="b-title" required>
+                        </label>
+
+                        <label>ID / código (vai na URL ?o=)
+                            <input type="text" id="b-id" pattern="[a-z0-9\-]+"
+                                title="apenas letras minúsculas, números e hífen" required>
+                        </label>
+
+                        <label>Cliente
+                            <input type="text" id="b-client" required>
+                        </label>
+
+                        <div class="dash-form-row">
+                            <label>Data de emissão
+                                <input type="date" id="b-date">
+                            </label>
+                            <label>Status
+                                <select id="b-status">
+                                    <option value="pending" selected>Pendente</option>
+                                    <option value="approved">Aprovado</option>
+                                    <option value="rejected">Recusado</option>
+                                    <option value="expired">Expirado</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <label>Valor total (R$)
+                            <input type="number" id="b-amount" step="0.01" min="0" required>
+                        </label>
+
+                        <label>Conteúdo da proposta (.md)
+                            <input type="file" id="b-md-file" accept=".md">
+                            <small id="b-md-current" class="dash-hint"></small>
+                        </label>
+
+                        <div class="dash-form-actions">
+                            <button type="submit" class="btn btn-primary">Salvar orçamento</button>
+                            <button type="button" id="b-cancel-edit" class="btn btn-ghost" hidden>Cancelar
+                                edição</button>
+                        </div>
+                        <p id="b-form-msg" class="dash-msg" hidden></p>
+                    </form>
+                </div>
+
+                <!-- Lista -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2>Orçamentos emitidos</h2>
+                    </div>
+                    <div id="budgets-list" class="dash-list"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script type="module" src="./js/dashboard-page.js"></script>
+</body>
+
+</html>

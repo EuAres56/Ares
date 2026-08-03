@@ -9,3 +9,12 @@ compatibility_date = "2026-07-29"
 binding = "DB"
 database_name = "ares"
 database_id = "8d7771a9-8760-4418-983d-a9f6eacc5a77"
+
+# Bucket R2 já existente na conta — reaproveitado para guardar os .md
+# de projetos e orçamentos, sob os prefixos projects/ e budgets/
+[[r2_buckets]]
+binding = "MD_BUCKET"
+bucket_name = "ares-portfolio-assets"
+
+# A chave de acesso do dashboard (DASHBOARD_KEY) NÃO entra aqui — é secret.
+# Defina com: wrangler pages secret put DASHBOARD_KEY

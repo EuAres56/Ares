@@ -160,6 +160,8 @@
     perspective: 800px;
     flex-shrink: 0;
 
+    box-shadow: 3px 3px 8px rgba(92, 92, 92, 0.8);
+
     /* Animação de entrada escalonada via JS (--pcard-i definido inline) */
     opacity: 0;
     transform: translateY(18px) scale(.97);

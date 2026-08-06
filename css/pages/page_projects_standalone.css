@@ -140,6 +140,8 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: clamp(1rem, 2vw, 1.75rem);
+    overflow-y: auto;
+    max-height: calc(100dvh - 150px);
 }
 
 /* ── PCARD — Business Card ──────────────────────────────────────────────────────────────────── */
@@ -801,6 +803,8 @@ body.modal-open {
 
     #proj-grid {
         gap: .85rem;
+        overflow-y: auto;
+        max-height: calc(100dvh - 150px);
     }
 
     .proj-modal-overlay {

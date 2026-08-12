@@ -4,7 +4,7 @@ function handleInstagramRedirect() {
     if (urlParams.get('channel') === 'Instagram') {
         try {
             console.log("[Redirect] Redirecionando para o WhatsApp devido ao parâmetro 'channel=Instagram'...");
-            const phoneNumber = '5500000000000'; // Substitua pelo seu número com DDD (ex: 5511999999999)
+            const phoneNumber = '5574991035811'; // Substitua pelo seu número com DDD (ex: 5511999999999)
             const message = encodeURIComponent('Olá, vim do insta e estou precisando da ajuda da Zero1');
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

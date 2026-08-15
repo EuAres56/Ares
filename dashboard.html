@@ -49,6 +49,7 @@
         <nav class="dash-tabs">
             <button class="dash-tab is-active" data-tab="projects">Projetos</button>
             <button class="dash-tab" data-tab="budgets">Orçamentos</button>
+            <button class="dash-tab" data-tab="posts">Blog Posts</button>
         </nav>
 
         <!-- ======================== ABA PROJETOS ======================== -->
@@ -195,6 +196,81 @@
                         <h2>Orçamentos emitidos</h2>
                     </div>
                     <div id="budgets-list" class="dash-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== ABA POSTS DO BLOG ======================== -->
+        <section class="dash-panel" id="panel-posts">
+
+            <div class="dash-grid">
+                <!-- Formulário -->
+                <div class="dash-card">
+                    <h2 id="post-form-title">Novo post</h2>
+                    <form id="post-form" class="dash-form">
+                        <input type="hidden" id="post-original-id">
+
+                        <label>Título da postagem
+                            <input type="text" id="post-title" required>
+                        </label>
+
+                        <label>ID / slug (usado na URL e no bucket)
+                            <input type="text" id="post-id" pattern="[a-z0-9\-]+"
+                                title="apenas letras minúsculas, números e hífen" required>
+                        </label>
+
+                        <label>Resumo / Descrição curta
+                            <textarea id="post-summary" rows="2"></textarea>
+                        </label>
+
+                        <label>Imagem de capa (URL)
+                            <input type="text" id="post-cover" placeholder="https://...">
+                        </label>
+
+                        <div class="dash-form-row">
+                            <label>Categoria
+                                <input type="text" id="post-category" placeholder="Engenharia de Software, Web...">
+                            </label>
+                            <label>Tempo de leitura
+                                <input type="text" id="post-readtime" placeholder="5 min">
+                            </label>
+                        </div>
+
+                        <div class="dash-form-row">
+                            <label>Autor
+                                <input type="text" id="post-author" placeholder="Elizeu Sanches (Ares)">
+                            </label>
+                            <label>Status
+                                <select id="post-status">
+                                    <option value="published" selected>Publicado</option>
+                                    <option value="draft">Rascunho</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <label>Tags (separadas por vírgula)
+                            <input type="text" id="post-tags" placeholder="Node.js, Cloudflare, Architecture">
+                        </label>
+
+                        <label>Conteúdo da postagem (.md)
+                            <input type="file" id="post-md-file" accept=".md">
+                            <small id="post-md-current" class="dash-hint"></small>
+                        </label>
+
+                        <div class="dash-form-actions">
+                            <button type="submit" class="btn btn-primary">Salvar postagem</button>
+                            <button type="button" id="post-cancel-edit" class="btn btn-ghost" hidden>Cancelar edição</button>
+                        </div>
+                        <p id="post-form-msg" class="dash-msg" hidden></p>
+                    </form>
+                </div>
+
+                <!-- Lista -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2>Postagens cadastradas</h2>
+                    </div>
+                    <div id="posts-list" class="dash-list"></div>
                 </div>
             </div>
         </section>

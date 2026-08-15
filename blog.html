@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description"
+        content="Blog de Elizeu Sanches (Ares) — Artigos técnicos, engenharia de software, desenvolvimento web e sistemas de alta performance.">
+    <title>Blog — ARES | Elizeu Sanches</title>
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ares.zero1-tech.com/blog">
+    <meta property="og:title" content="Zero1 - Soluções Tecnológicas | Blog">
+    <meta property="og:description" content="Artigos sobre engenharia de software, sistemas distribuídos e desenvolvimento full stack.">
+    <meta property="og:image" content="https://ares.zero1-tech.com/assets/images/zero1Background.webp">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ares.zero1-tech.com/blog">
+    <meta property="twitter:title" content="Zero1 - Soluções Tecnológicas | Blog">
+    <meta property="twitter:description" content="Artigos sobre engenharia de software, sistemas distribuídos e desenvolvimento full stack.">
+    <meta property="twitter:image" content="https://ares.zero1-tech.com/assets/images/zero1Background.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Ícones e CSS Base -->
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- CSS desta página -->
+    <link rel="stylesheet" href="./css/pages/page_blog_standalone.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body class="blog-page">
+
+    <!-- Fundo de alta fidelidade visual -->
+    <div class="blog-page__bg" aria-hidden="true"></div>
+
+    <!-- Canvas do particles engine -->
+    <div id="blog-page-bg" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+    <header class="blog-header">
+        <button id="blog-back" type="button" aria-label="Voltar ao portfólio">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+            </svg>
+            Portfólio
+        </button>
+
+        <div class="blog-header__meta">
+            <p class="blog-header__eyebrow">Artigos & Publicações</p>
+            <h1 class="blog-header__title">Blog ARES</h1>
+        </div>
+
+        <div class="main-logo">
+            <i class="logo-zero1"></i>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         CONTEÚDO PRINCIPAL (BUSCA + LISTA DE CARDS)
+    ============================================================ -->
+    <main class="blog-main">
+        <!-- Campo de Busca em Tempo Real -->
+        <div class="blog-search-container">
+            <div class="blog-search-box">
+                <input type="text" id="blog-search-input" class="blog-search-input"
+                    placeholder="Buscar artigo por título, assunto ou tag..." autocomplete="off">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Lista de Cards de Postagens -->
+        <section id="blog-list" class="blog-list" role="list" aria-label="Lista de artigos do blog">
+            <!-- Cards injetados via JS (blog-page.js) -->
+        </section>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="blog-footer">
+        <p>ARES &mdash; Elizeu Sanches &nbsp;<span>·</span>&nbsp; <span>Dev Full Stack</span></p>
+    </footer>
+
+    <!-- ============================================================
+         MODAL FULL-SCREEN — visualização expandida do artigo .md
+    ============================================================ -->
+    <div id="blog-modal-overlay" class="blog-modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="blog-modal-title">
+        <div class="blog-modal">
+            <!-- Cabeçalho do Modal -->
+            <div class="blog-modal__head">
+                <div class="blog-modal__title-group">
+                    <span id="blog-modal-category" class="blog-modal__category">Artigo</span>
+                    <h2 id="blog-modal-title" class="blog-modal__title">Carregando...</h2>
+                </div>
+                <button id="blog-modal-close" class="blog-modal__close" aria-label="Fechar artigo">✕</button>
+            </div>
+
+            <!-- Corpo com rolagem contendo o cabeçalho do post e conteúdo Markdown -->
+            <div class="blog-modal__body" id="blog-modal-body">
+                <div class="blog-modal__content-wrap">
+                    <div class="blog-modal__post-header">
+                        <div class="blog-modal__post-meta">
+                            <span id="blog-modal-author">Elizeu Sanches (Ares)</span> •
+                            <span id="blog-modal-date"></span> •
+                            <span id="blog-modal-readtime"></span>
+                        </div>
+                    </div>
+                    <div id="blog-modal-loader" class="blog-modal__loader">Carregando artigo...</div>
+                    <div id="blog-modal-error" class="blog-modal__error" hidden></div>
+                    <div id="blog-modal-content" class="blog-markdown-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCRIPTS
+    ============================================================ -->
+    <script type="module" src="./js/engines/particles-engine.js"></script>
+    <script type="module" src="./js/blog-page.js"></script>
+    <script src="./js/redirect.js"></script>
+</body>
+
+</html>

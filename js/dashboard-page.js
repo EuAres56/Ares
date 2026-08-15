@@ -11,6 +11,7 @@ const STORAGE_KEY = 'ares_dashboard_key';
 
 let PROJECTS = [];
 let BUDGETS = [];
+let POSTS = [];
 let projectLinkRows = []; // estado das linhas de link do form de projeto
 
 // =====================================================================
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initProjectForm();
     initBudgetForm();
+    initPostForm();
 
     const savedKey = sessionStorage.getItem(STORAGE_KEY);
     if (savedKey) {
@@ -84,7 +86,7 @@ async function tryEnterDashboard(key) {
         document.getElementById('dash-login-overlay').hidden = true;
         document.getElementById('dash-app').hidden = false;
 
-        await Promise.all([loadProjects(), loadBudgets()]);
+        await Promise.all([loadProjects(), loadBudgets(), loadPosts()]);
     } catch (err) {
         errorEl.textContent = `Falha de conexão: ${err.message}`;
         errorEl.hidden = false;
@@ -556,6 +558,167 @@ async function onSubmitBudget(e) {
 }
 
 // =====================================================================
+// POSTS DO BLOG — LISTA
+// =====================================================================
+
+async function loadPosts() {
+    try {
+        const response = await fetch('/api/posts');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        POSTS = await response.json();
+        renderPostsList();
+    } catch (err) {
+        console.error('[Dashboard] Erro ao carregar posts:', err);
+    }
+}
+
+function renderPostsList() {
+    const list = document.getElementById('posts-list');
+    if (!list) return;
+
+    if (!POSTS.length) {
+        list.innerHTML = '<p class="dash-empty">Nenhuma postagem cadastrada ainda.</p>';
+        return;
+    }
+
+    list.innerHTML = POSTS.map(p => `
+        <div class="dash-list-item" data-id="${escapeHtml(p.id)}">
+            <div class="dash-list-item__info">
+                <strong>${escapeHtml(p.title)}</strong>
+                <span>${escapeHtml(p.id)} · ${escapeHtml(p.category || 'Artigo')} · ${escapeHtml(p.status || 'published')}</span>
+            </div>
+            <div class="dash-list-item__actions">
+                <button type="button" class="post-edit-btn" data-id="${escapeHtml(p.id)}">Editar</button>
+                <button type="button" class="is-danger post-delete-btn" data-id="${escapeHtml(p.id)}">Excluir</button>
+            </div>
+        </div>
+    `).join('');
+
+    list.querySelectorAll('.post-edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => fillPostForm(btn.dataset.id));
+    });
+    list.querySelectorAll('.post-delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deletePost(btn.dataset.id));
+    });
+}
+
+async function deletePost(id) {
+    if (!confirm(`Excluir a postagem "${id}" permanentemente?`)) return;
+
+    try {
+        const response = await fetch(`/api/posts?id=${encodeURIComponent(id)}`, {
+            method: 'DELETE',
+            headers: authHeaders()
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Erro ao excluir postagem.');
+
+        await loadPosts();
+    } catch (err) {
+        alert(err.message);
+    }
+}
+
+// =====================================================================
+// POSTS DO BLOG — FORMULÁRIO
+// =====================================================================
+
+function initPostForm() {
+    document.getElementById('post-cancel-edit')?.addEventListener('click', resetPostForm);
+
+    document.getElementById('post-title')?.addEventListener('input', (e) => {
+        const idField = document.getElementById('post-id');
+        const originalId = document.getElementById('post-original-id').value;
+        if (!originalId && idField) {
+            idField.value = slugify(e.target.value);
+        }
+    });
+
+    document.getElementById('post-form')?.addEventListener('submit', onSubmitPost);
+}
+
+function fillPostForm(id) {
+    const post = POSTS.find(p => p.id === id);
+    if (!post) return;
+
+    document.getElementById('post-form-title').textContent = `Editando: ${post.title}`;
+    document.getElementById('post-original-id').value = post.id;
+    document.getElementById('post-id').value = post.id;
+    document.getElementById('post-id').disabled = true;
+    document.getElementById('post-title').value = post.title;
+    document.getElementById('post-summary').value = post.summary || '';
+    document.getElementById('post-cover').value = post.cover || '';
+    document.getElementById('post-category').value = post.category || '';
+    document.getElementById('post-readtime').value = post.read_time || '';
+    document.getElementById('post-author').value = post.author || '';
+    document.getElementById('post-status').value = post.status || 'published';
+    document.getElementById('post-tags').value = (post.tags || []).join(', ');
+
+    document.getElementById('post-md-current').textContent = post.mdFile
+        ? `Arquivo atual: ${post.mdFile}`
+        : 'Nenhum arquivo .md associado ainda.';
+
+    document.getElementById('post-cancel-edit').hidden = false;
+    document.getElementById('panel-posts').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetPostForm() {
+    document.getElementById('post-form-title').textContent = 'Novo post';
+    document.getElementById('post-form').reset();
+    document.getElementById('post-original-id').value = '';
+    document.getElementById('post-id').disabled = false;
+    document.getElementById('post-md-current').textContent = '';
+    document.getElementById('post-cancel-edit').hidden = true;
+}
+
+async function onSubmitPost(e) {
+    e.preventDefault();
+    const msgEl = document.getElementById('post-form-msg');
+    msgEl.hidden = true;
+
+    const originalId = document.getElementById('post-original-id').value;
+    const id = document.getElementById('post-id').value.trim();
+    const title = document.getElementById('post-title').value.trim();
+    const summary = document.getElementById('post-summary').value.trim();
+    const cover = document.getElementById('post-cover').value.trim();
+    const category = document.getElementById('post-category').value.trim();
+    const read_time = document.getElementById('post-readtime').value.trim();
+    const author = document.getElementById('post-author').value.trim();
+    const status = document.getElementById('post-status').value;
+    const tagsRaw = document.getElementById('post-tags').value;
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+    const mdFileInput = document.getElementById('post-md-file');
+    const isEditing = Boolean(originalId);
+
+    try {
+        let mdFile = isEditing ? (POSTS.find(p => p.id === originalId)?.mdFile || '') : '';
+
+        if (mdFileInput.files.length > 0) {
+            mdFile = await uploadMarkdown(mdFileInput.files[0], 'posts', id);
+        }
+
+        const payload = {
+            id, title, summary, cover, category, read_time, author, status, tags, mdFile
+        };
+
+        const response = await fetch('/api/posts', {
+            method: isEditing ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Erro ao salvar postagem.');
+
+        showMsg(msgEl, 'Postagem salva com sucesso!', true);
+        resetPostForm();
+        await loadPosts();
+    } catch (err) {
+        showMsg(msgEl, err.message, false);
+    }
+}
+
+// =====================================================================
 // HELPERS
 // =====================================================================
 
@@ -573,3 +736,4 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 }
+

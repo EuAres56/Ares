@@ -24,8 +24,8 @@ export async function onRequestPost(context) {
     if (!file || !type || !id) {
       return badRequest('file, type e id são obrigatórios.');
     }
-    if (!['projects', 'budgets'].includes(type)) {
-      return badRequest("type deve ser 'projects' ou 'budgets'.");
+    if (!['projects', 'budgets', 'posts'].includes(type)) {
+      return badRequest("type deve ser 'projects', 'budgets' ou 'posts'.");
     }
     if (!env.MD_BUCKET) {
       return serverErrorMsg('Bucket R2 (MD_BUCKET) não está vinculado neste ambiente.');
